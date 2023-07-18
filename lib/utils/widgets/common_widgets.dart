@@ -3,13 +3,31 @@ import 'package:appwash/utils/constants/app_font_size.dart';
 import 'package:appwash/utils/enums.dart';
 import 'package:appwash/utils/images/icons_path.dart';
 import 'package:appwash/utils/styles/text_styles.dart';
+import 'package:appwash/utils/widgets/image_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'customs/drop_down.dart';
 
 class CommonWidgets {
+  //
+  static Widget circularBack() => Padding(
+        padding: const EdgeInsets.all(5),
+        child: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: CircleAvatar(
+            backgroundColor: AppColors.black.withOpacity(0.2),
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
   //
   static Widget rateWidget(int rate) => Wrap(
         children: List.generate(
@@ -29,6 +47,7 @@ class CommonWidgets {
           Color? titleColor,
           EdgeInsetsGeometry? margin,
           EdgeInsetsGeometry? padding,
+          double? bgOpacity,
           bool withBorder = false}) =>
       Padding(
         padding: margin ?? EdgeInsets.zero,
@@ -41,7 +60,8 @@ class CommonWidgets {
             decoration: BoxDecoration(
                 color: withBorder
                     ? Colors.transparent
-                    : color ?? Theme.of(context).primaryColor,
+                    : (color ?? Theme.of(context).primaryColor)
+                        .withOpacity(bgOpacity ?? 1),
                 borderRadius: BorderRadius.circular(5),
                 border: withBorder
                     ? Border.all(color: color ?? Theme.of(context).primaryColor)
@@ -107,7 +127,8 @@ class CommonWidgets {
                 maxLength: maxLength,
                 controller: controller,
                 onChanged: onChanged,
-                style: TextStyles.normalText(context),
+                style:
+                    TextStyles.normalText(context, fontWeight: FontWeight.w400),
                 textInputAction: textInputAction,
                 textAlign: textAlign ?? TextAlign.start,
                 keyboardType: textInputType,
@@ -116,18 +137,22 @@ class CommonWidgets {
                   counterText: counterText ?? '',
                   prefix: !isPhoneInput
                       ? null
-                      : RichText(
-                          text: TextSpan(
-                            text: '🇮🇳',
-                            style: TextStyles.normalText(context,
-                                color: Colors.transparent),
-                            children: <TextSpan>[
-                              const TextSpan(text: ' +91 '),
-                              TextSpan(
-                                  text: '| ',
-                                  style: TextStyles.normalText(context,
-                                      isGrey: true, color: Colors.transparent)),
-                            ],
+                      : Container(
+                          color: Colors.amber,
+                          child: RichText(
+                            text: TextSpan(
+                              text: '🇮🇳',
+                              style: TextStyles.normalText(context,
+                                  color: Colors.transparent),
+                              children: <TextSpan>[
+                                const TextSpan(text: ' +91 '),
+                                TextSpan(
+                                    text: '| ',
+                                    style: TextStyles.normalText(context,
+                                        isGrey: true,
+                                        color: Colors.transparent)),
+                              ],
+                            ),
                           ),
                         ),
                   hintText: hint,
@@ -155,9 +180,7 @@ class CommonWidgets {
                       ? "$title can't be empty."
                       : validationStatus == ValidationStatus.OTHER
                           ? validationMsg ?? ''
-                          : validationStatus == ValidationStatus.GOOD_JOB
-                              ? "Good job."
-                              : '',
+                          : '',
                   style: TextStyle(
                       fontSize: FontSizes.textVeryVerySmall,
                       color: validationStatus == ValidationStatus.GOOD_JOB
@@ -224,7 +247,9 @@ class CommonWidgets {
         childShadowColor: Theme.of(context).colorScheme.shadow,
         labelText: Text(
           selected == -1 ? hintText ?? "Select" : items[selected],
-          style: TextStyles.mediumText(context, fontWeight: FontWeight.bold),
+          style: TextStyles.mediumText(context,
+              // fontWeight: FontWeight.bold,
+              color: selected == -1 ? AppColors.greyNormal : null),
         ),
         onChange: (index) {
           onChange(index);
@@ -282,69 +307,56 @@ class CommonWidgets {
     Color? cardColor,
     bool isSelectable = false,
     bool isSelected = false,
-    Function(bool)? onSelectChange,
+    required Function onClick,
   }) =>
       Container(
         width: double.infinity,
-        // margin: const EdgeInsets.symmetric(vertical: paddingVn),
-
-        padding: const EdgeInsets.only(bottom: 5, right: 8),
+        padding: !isSelected
+            ? const EdgeInsets.symmetric(horizontal: 5, vertical: 5)
+            : const EdgeInsets.only(top: 2, left: 6, right: 2, bottom: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? (cardColor ?? Theme.of(context).primaryColor).withOpacity(0.2)
-              : cardColor ?? Theme.of(context).primaryColor,
+              : null, // cardColor ?? Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20),
-          // border: Border.all(
-          //     color: cardColor ?? Theme.of(context).primaryColor.withBlue(2),
-          //     width: 2),
-          boxShadow: !isSelected
-              ? null
-              : [
-                  BoxShadow(
-                    blurRadius: 10,
-                    color: (cardColor ?? Theme.of(context).primaryColor)
-                        .withOpacity(0.5),
-                    offset: const Offset(1, 1),
-                    spreadRadius: 0,
-                  ),
-                ],
+          border: isSelected
+              ? Border.all(
+                  color: (cardColor ?? Theme.of(context).primaryColor).withOpacity(
+                      0.4), //(cardColor ?? Theme.of(context).primaryColor).withOpacity(0.6),
+                  width: 1.5)
+              : null,
         ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: paddingHn, vertical: paddingVn),
-          decoration: !isSelected
-              ? null
-              : BoxDecoration(
-                  color: cardColor ?? Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        color: (cardColor ?? Theme.of(context).primaryColor)
-                            .withOpacity(0.3),
-                        offset: const Offset(2, 2),
-                        spreadRadius: 2,
-                      ),
-                    ]),
-          child: Row(
+        child: GestureDetector(
+          onTap: () => onClick(),
+          child: Stack(
             children: [
-              Flexible(
-                flex: 1,
-                child: Image.asset(image ?? AppIcons.splashLogo,
-                    color: AppColors.white),
-              ),
-              const SizedBox(width: paddingHn),
-              Flexible(
-                flex: 3,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: paddingHn, vertical: paddingVn),
+                decoration: !isSelected
+                    ? BoxDecoration(
+                        color: cardColor ?? Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(17),
+                      )
+                    : BoxDecoration(
+                        color: cardColor ?? Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(17),
+                      ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
+                        Image.asset(
+                          image ?? AppIcons.splashLogo,
+                          color: AppColors.white,
+                          height: 80,
+                          width: 80,
+                        ),
+                        const SizedBox(width: paddingH),
                         Expanded(
                           child: RichText(
                             text: TextSpan(
-                              text: "\$${amount.toStringAsFixed(0)}/ ",
+                              text: "₹${amount.toStringAsFixed(0)}/ ",
                               style: TextStyles.largText(context,
                                   fontSize: 24, fontWeight: FontWeight.w600),
                               children: [
@@ -357,27 +369,6 @@ class CommonWidgets {
                             ),
                           ),
                         ),
-                        // isSelectable
-                        //     ? Radio(
-                        //         materialTapTargetSize:
-                        //             MaterialTapTargetSize.shrinkWrap,
-                        //         visualDensity: const VisualDensity(
-                        //           horizontal: VisualDensity.minimumDensity,
-                        //           vertical: VisualDensity.minimumDensity,
-                        //         ),
-                        //         value: isSelected,
-                        //         groupValue: true,
-                        //         fillColor:
-                        //             MaterialStateProperty.all(AppColors.white),
-                        //         activeColor: AppColors.white,
-                        //         autofocus: true,
-                        //         onChanged: (value) {
-                        //           if (onSelectChange != null) {
-                        //             onSelectChange(!isSelected);
-                        //           }
-                        //         },
-                        //       )
-                        //     : const SizedBox.shrink(),
                       ],
                     ),
                     const SizedBox(height: paddingVn),
@@ -390,7 +381,7 @@ class CommonWidgets {
                           const Icon(
                             Icons.check,
                             color: AppColors.white,
-                            size: 16,
+                            size: 14,
                           ),
                           const SizedBox(width: paddingHn),
                           Expanded(
@@ -406,6 +397,26 @@ class CommonWidgets {
                   ],
                 ),
               ),
+              Positioned(
+                top: 5,
+                right: 5,
+                child: isSelected
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: Colors.white.withOpacity(0.3),
+                                width: 0.8)),
+                        padding: const EdgeInsets.all(3),
+                        child: Image.asset(
+                          AppIcons.checked,
+                          height: 18,
+                          width: 18,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              )
             ],
           ),
         ),
@@ -422,7 +433,7 @@ class CommonWidgets {
             borderRadius: BorderRadius.circular(10),
             child: CarouselSlider(
               options: CarouselOptions(
-                height: 100,
+                height: 120,
                 viewportFraction: 1.0,
                 enlargeCenterPage: false,
                 autoPlay: true,
@@ -432,12 +443,16 @@ class CommonWidgets {
                 },
               ),
               items: items
-                  .map((item) => SizedBox(
-                        width: double.infinity,
-                        child: Image.network(
-                          item,
-                          fit: BoxFit.cover,
-                          height: 100,
+                  .map((item) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: ImageView.view(
+                            item,
+                            fit: BoxFit.cover,
+                            height: 100,
+                            width: double.infinity,
+                          ),
                         ),
                       ))
                   .toList(),

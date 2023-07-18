@@ -1,4 +1,3 @@
-import 'dart:developer' as prints;
 import 'package:appwash/viewmodel/app_home/wash_plan/wash_plan_viewmodel.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
 import 'package:appwash/utils/constants/app_font_size.dart';
@@ -40,7 +39,7 @@ class WashPlanScreen extends StatelessWidget {
                               : AppColors.grey2,
                       color: washPlanVm.washPlanType.value == WashPlan.BASIC
                           ? null
-                          : AppColors.transparent,
+                          : Theme.of(context).scaffoldBackgroundColor,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 8),
                       onClick: () {
@@ -57,7 +56,7 @@ class WashPlanScreen extends StatelessWidget {
                               : AppColors.grey2,
                       color: washPlanVm.washPlanType.value == WashPlan.PREMIUM
                           ? null
-                          : AppColors.transparent,
+                          : Theme.of(context).scaffoldBackgroundColor,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 8),
                       onClick: () {
@@ -77,9 +76,11 @@ class WashPlanScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: plans.length,
               itemBuilder: (context, index) {
-                return CommonWidgets.washPlanCard(context,
+                return Obx(
+                  () => CommonWidgets.washPlanCard(
+                    context,
                     isSelectable: true,
-                    isSelected: index == 1,
+                    isSelected: washPlanVm.selected.value == index,
                     cardColor: AppColors.getColor(plans[index]),
                     amount: 60,
                     image: AppImages.carImg,
@@ -88,9 +89,12 @@ class WashPlanScreen extends StatelessWidget {
                       'Lorem Ipsum is simply dummy',
                       'Lorem Ipsum is simply dummy text of the',
                       'Lorem Ipsum is simply dummy'
-                    ], onSelectChange: (bool v) {
-                  prints.log(v.toString());
-                });
+                    ],
+                    onClick: () {
+                      washPlanVm.selected.value = index;
+                    },
+                  ),
+                );
               },
             ),
             const SizedBox(height: paddingV),

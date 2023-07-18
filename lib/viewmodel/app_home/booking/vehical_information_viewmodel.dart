@@ -9,5 +9,9 @@ class VehicleInformationViewmodel extends GetxController {
     "8D8D8D",
     "250F65",
     "445E0C",
+    "FFFFFF",
+    "8D8D8D",
+    "250F65",
+    "445E0C",
   ];
 }

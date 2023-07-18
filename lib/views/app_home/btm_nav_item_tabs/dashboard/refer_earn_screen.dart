@@ -42,12 +42,13 @@ class ReferEarnScreen extends StatelessWidget {
                     children: [
                       const SizedBox(height: paddingV * 2),
                       Text(
-                        "Earn \$ 100!",
+                        "Earn ₹100!",
                         style: TextStyles.largText(context,
                             fontSize: 22, fontWeight: FontWeight.w800),
                       ),
+                      const SizedBox(height: paddingVn),
                       Text(
-                        '''Invite your friend to appwash\nGet \$100 cashback!\nwhen they do their first booking using appwash''',
+                        '''Invite your friend to appwash\nGet ₹100 cashback!\nwhen they do their first booking using appwash''',
                         style: TextStyles.smallText(context),
                         textAlign: TextAlign.center,
                       ),

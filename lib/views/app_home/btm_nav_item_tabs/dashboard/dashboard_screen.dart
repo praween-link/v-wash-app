@@ -1,8 +1,8 @@
+import 'package:appwash/utils/widgets/image_view.dart';
 import 'package:appwash/viewmodel/app_home/dashboard/dashboard_viewmodel.dart';
 import 'package:appwash/routes/paths.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
 import 'package:appwash/utils/constants/app_font_size.dart';
-import 'package:appwash/utils/images/icons_path.dart';
 import 'package:appwash/utils/styles/text_styles.dart';
 import 'package:appwash/utils/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
@@ -36,33 +36,69 @@ class DashboardScreen extends StatelessWidget with _WidgetsDashboard {
               ),
             ),
             const SizedBox(height: paddingVn),
-            SizedBox(
-              height: 75,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: dashboardVm.dashCatForUser.length + 1,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return index == 0
-                      ? const SizedBox(width: paddingH)
-                      : Padding(
-                          padding: EdgeInsets.only(
-                              right: index == dashboardVm.dashCatForUser.length
-                                  ? paddingH
-                                  : paddingH / 2),
-                          child: _WidgetsDashboard.dashCatCard(
-                            context,
-                            title: dashboardVm.dashCatForUser[index - 1].title,
-                            assetIcon:
-                                dashboardVm.dashCatForUser[index - 1].assetIcon,
-                            onClick: () => index == 1
-                                ? Get.toNamed(Routes.APPWASH_WALLET)
-                                : index == 2
-                                    ? Get.toNamed(Routes.REWARDS)
-                                    : Get.toNamed(Routes.REFER_EARN),
-                          ),
-                        );
-                },
+            // SizedBox(
+            //   height: 75,
+            //   child: ListView.builder(
+            //     physics: const BouncingScrollPhysics(),
+            //     itemCount: dashboardVm.dashCatForUser.length + 1,
+            //     scrollDirection: Axis.horizontal,
+            //     itemBuilder: (context, index) {
+            //       return index == 0
+            //           ? const SizedBox(width: paddingH)
+            //           : Padding(
+            //               padding: EdgeInsets.only(
+            //                   right: index == dashboardVm.dashCatForUser.length
+            //                       ? paddingH
+            //                       : paddingH / 2),
+            //               child: _WidgetsDashboard.dashCatCard(
+            //                 context,
+            //                 title: dashboardVm.dashCatForUser[index - 1].title,
+            //                 assetIcon:
+            //                     dashboardVm.dashCatForUser[index - 1].assetIcon,
+            //                 onClick: () => index == 1
+            //                     ? Get.toNamed(Routes.APPWASH_WALLET)
+            //                     : index == 2
+            //                         ? Get.toNamed(Routes.REWARDS)
+            //                         : Get.toNamed(Routes.REFER_EARN),
+            //               ),
+            //             );
+            //     },
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: paddingH),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: _WidgetsDashboard.dashCatCard(context,
+                        title: dashboardVm.dashCatForUser[0].title,
+                        assetIcon: dashboardVm.dashCatForUser[0].assetIcon,
+                        onClick: () {
+                      Get.toNamed(Routes.APPWASH_WALLET);
+                    }),
+                  ),
+                  const SizedBox(width: paddingHn),
+                  Expanded(
+                    flex: 1,
+                    child: _WidgetsDashboard.dashCatCard(context,
+                        title: dashboardVm.dashCatForUser[1].title,
+                        assetIcon: dashboardVm.dashCatForUser[1].assetIcon,
+                        onClick: () {
+                      Get.toNamed(Routes.REWARDS);
+                    }),
+                  ),
+                  const SizedBox(width: paddingHn),
+                  Expanded(
+                    flex: 1,
+                    child: _WidgetsDashboard.dashCatCard(context,
+                        title: dashboardVm.dashCatForUser[2].title,
+                        assetIcon: dashboardVm.dashCatForUser[2].assetIcon,
+                        onClick: () {
+                      Get.toNamed(Routes.REFER_EARN);
+                    }),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: paddingV),
@@ -144,7 +180,7 @@ mixin _WidgetsDashboard {
       Stack(
         children: [
           Container(
-            height: 110,
+            height: 100,
             margin: const EdgeInsets.only(
                 left: paddingH, right: paddingH, bottom: paddingH),
             decoration: BoxDecoration(
@@ -159,18 +195,14 @@ mixin _WidgetsDashboard {
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10)),
                   ),
-                  width: 120,
+                  width: Get.width * 0.35,
                   height: double.infinity,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
                     ),
-                    child: FadeInImage(
-                      image: NetworkImage(img),
-                      placeholder: AssetImage(AppImages.placeholderImg),
-                      fit: BoxFit.contain,
-                    ),
+                    child: ImageView.view(img, fit: BoxFit.cover),
                   ),
                 ),
                 const SizedBox(width: paddingHn),
@@ -217,14 +249,14 @@ mixin _WidgetsDashboard {
                           ),
                         ],
                       ),
-                      const SizedBox(height: paddingVn / 2),
-                      Text(
-                        "₹ $price",
-                        style: TextStyles.mediumText(context,
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w600),
-                        maxLines: 1,
-                      ),
+                      // const SizedBox(height: paddingVn / 2),
+                      // Text(
+                      //   "₹$price",
+                      //   style: TextStyles.mediumText(context,
+                      //       color: Theme.of(context).primaryColor,
+                      //       fontWeight: FontWeight.w600),
+                      //   maxLines: 1,
+                      // ),
                     ],
                   ),
                 )),

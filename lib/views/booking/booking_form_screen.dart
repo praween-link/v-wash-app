@@ -175,14 +175,17 @@ class BookingScreen extends StatelessWidget {
                               bookingVm.selectedTimeSlotIndex.value = index;
                             },
                           )
-                        : CommonWidgets.washPlanCard(context,
+                        : CommonWidgets.washPlanCard(
+                            context,
                             amount: 60,
                             planValidity: "Day's",
                             contents: [
-                                'Lorem Ipsum is simply dummy',
-                                'Lorem Ipsum is simply dummy text of the',
-                                'Lorem Ipsum is simply dummy'
-                              ]),
+                              'Lorem Ipsum is simply dummy',
+                              'Lorem Ipsum is simply dummy text of the',
+                              'Lorem Ipsum is simply dummy'
+                            ],
+                            onClick: () {},
+                          ),
                     const SizedBox(height: paddingV),
                   ],
                 ),
@@ -206,7 +209,9 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () {}, isHint: true),
+                              text: "DD-MM-YY", onClick: () async {
+                            await datePicker(context);
+                          }, isHint: true),
                         ),
                         bookingVm.selectedProcessTypeIndex.value == 0
                             ? const SizedBox.shrink()
@@ -273,7 +278,9 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () {}, isHint: true),
+                              text: "DD-MM-YY", onClick: () async {
+                            await datePicker(context);
+                          }, isHint: true),
                         ),
                         const SizedBox(height: paddingV),
                       ],
@@ -297,7 +304,9 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () {}, isHint: true),
+                              text: "DD-MM-YY", onClick: () async {
+                            await datePicker(context);
+                          }, isHint: true),
                         ),
 
                         const SizedBox(height: paddingV),
@@ -332,7 +341,7 @@ class BookingScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: paddingH),
                 child: CommonWidgets.button(
                   context,
-                  title: "Proceed to Pay \$60 ",
+                  title: "Proceed to Pay ₹60 ",
                   onClick: () {},
                 ),
               ),
@@ -340,6 +349,17 @@ class BookingScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  datePicker(context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+
+      initialDate: DateTime.now(), //get today's date
+      firstDate: DateTime(
+          2000), //DateTime.now() - not to allow to choose before today.
+      lastDate: DateTime(2101),
     );
   }
 
@@ -354,7 +374,7 @@ class BookingScreen extends StatelessWidget {
           onChange(value);
         },
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Radio(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

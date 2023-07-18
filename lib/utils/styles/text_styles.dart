@@ -14,7 +14,7 @@ class TextStyles {
 
   /// Input Field
   static TextStyle inputFieldTitle(context) =>
-      TextStyle(fontSize: FontSizes.headerMedium, fontWeight: FontWeight.w600);
+      TextStyle(fontSize: FontSizes.headerMedium, fontWeight: FontWeight.w400);
 
   /// Button
   static TextStyle buttonText(context, {Color? color}) => TextStyle(

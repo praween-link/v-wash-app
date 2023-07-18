@@ -1,3 +1,4 @@
+import 'package:appwash/utils/widgets/image_view.dart';
 import 'package:appwash/viewmodel/app_home/dashboard/rewards_viewmodel.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
 import 'package:appwash/utils/constants/app_font_size.dart';
@@ -5,9 +6,9 @@ import 'package:appwash/utils/enums.dart';
 import 'package:appwash/utils/styles/text_styles.dart';
 import 'package:appwash/utils/widgets/common_widgets.dart';
 import 'package:appwash/utils/widgets/scaffo.dart';
-import 'package:appwash/views/common_views/calender_test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class BookedDetailsScreen extends StatelessWidget {
   BookedDetailsScreen({super.key});
@@ -59,9 +60,12 @@ class BookedDetailsScreen extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: SizedBox(
+                        // color: Colors.grey.shade200,
                         height: MediaQuery.of(context).size.height * 0.13,
-                        child: Image.network(
-                            'https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg'),
+                        child: ImageView.view(
+                            'https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg',
+                            width: Get.width * 0.5,
+                            fit: BoxFit.cover),
                       ),
                     ),
                     const SizedBox(height: paddingVn),
@@ -86,7 +90,46 @@ class BookedDetailsScreen extends StatelessWidget {
                         const SizedBox(width: paddingHn / 2),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const DynamicEvent());
+                            // Get.to(() => const DynamicEvent());
+                            Get.dialog(
+                              Center(
+                                child: Wrap(
+                                  children: [
+                                    Material(
+                                      color: Colors.transparent,
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 14, vertical: 14),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              width: 0.5),
+                                        ),
+                                        child: SfDateRangePicker(
+                                          initialSelectedDates: [
+                                            DateTime(2023, 7, 13),
+                                            DateTime(2023, 7, 14),
+                                            DateTime(2023, 7, 15),
+                                            DateTime(2023, 7, 19),
+                                            DateTime(2023, 7, 21),
+                                          ],
+                                          onSelectionChanged: null,
+                                          selectionMode:
+                                              DateRangePickerSelectionMode
+                                                  .multiple,
+                                          //
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                           child: Text(
                             false
@@ -109,7 +152,7 @@ class BookedDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: paddingVn / 2),
                     Text(
-                      "₹ 52.05",
+                      "₹52.05",
                       style: TextStyles.normalText(context,
                           fontWeight: FontWeight.w700),
                     ),
@@ -138,18 +181,18 @@ class BookedDetailsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Text(
-                      //   "Today Scheduled",
-                      //   style: TextStyles.mediumText(context,
-                      //       fontWeight: FontWeight.w600),
-                      // ),
-                      // const SizedBox(height: paddingVn),
-                      // //
+                      Text(
+                        "Today Scheduled",
+                        style: TextStyles.mediumText(context,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: paddingVn),
+                      //
 
-                      // _scheduledTile(context,
-                      //     todayIsActive: false,
-                      //     scheduleStatus: ScheduleStatus.PROGRESS),
-                      // const SizedBox(height: paddingVn),
+                      _scheduledTile(context,
+                          todayIsActive: false,
+                          scheduleStatus: ScheduleStatus.UPCOMING),
+                      const SizedBox(height: paddingVn),
 
                       Text(
                         "Booking Scheduled",
@@ -162,7 +205,9 @@ class BookedDetailsScreen extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => _scheduledTile(
                               context,
-                              scheduleStatus: ScheduleStatus.PROGRESS),
+                              scheduleStatus: index % 2 == 0
+                                  ? ScheduleStatus.PROGRESS
+                                  : ScheduleStatus.COMPLETED),
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: paddingVn),
                           itemCount: 5),
@@ -227,15 +272,14 @@ class BookedDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: paddingH + 8),
                     child: RichText(
                       text: TextSpan(
-                        text: 'Asigned: ',
-                        style: TextStyles.verySmallText(context,
-                            fontStyle: FontStyle.italic, isGrey: true),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "John | 08AM - 09AM",
-                              style: TextStyles.verySmallText(context,
-                                  isGrey: true, fontStyle: FontStyle.normal)),
-                        ],
+                        text: 'Preferred TimeSlot  9:00 AM - 10:00 AM',
+                        style: TextStyles.verySmallText(context, isGrey: true),
+                        // children: <TextSpan>[
+                        //   TextSpan(
+                        //       text: "John | 08AM - 09AM",
+                        //       style: TextStyles.verySmallText(context,
+                        //           isGrey: true, fontStyle: FontStyle.normal)),
+                        // ],
                       ),
                       maxLines: 2,
                     ),

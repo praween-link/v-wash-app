@@ -1,5 +1,4 @@
 import 'package:appwash/model/auth/signup_model.dart';
-import 'package:appwash/routes/paths.dart';
 import 'package:appwash/utils/enums.dart';
 import 'package:appwash/utils/logics/regex.dart';
 import 'package:appwash/utils/widgets/customs/toast.dart';
@@ -28,7 +27,8 @@ class AuthViewModel extends GetxController {
     _activeFields.value = true;
     _activeFields.refresh();
     if (allValid) {
-      Get.offAllNamed(Routes.WELCOMEBACK);
+      // Get.offAllNamed(Routes.WELCOMEBACK);
+      Get.back();
 
       ToastKit.showToast(context,
           message: "Submit successfully!",

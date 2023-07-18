@@ -34,39 +34,39 @@ class FontSizes {
   static Range appBarFontSizeRange = Range(min: 18, max: 24);
 
   /// HEADER TEXT FONT SIZE
-  static double headerVeryVeryBig = 28.fs(fshvvb);
+  static double headerVeryVeryBig = 26.fs(fshvvb);
   static Range headerVeryVeryBigRange = Range(min: 22, max: 34);
 
-  static double headerVeryBig = 24.fs(fshvb);
+  static double headerVeryBig = 22.fs(fshvb);
   static Range headerVeryBigRange = Range(min: 18, max: 26);
 
-  static double headerBig = 18.fs(fshb);
+  static double headerBig = 16.fs(fshb);
   static Range headerBigRange = Range(min: 16, max: 22);
 
-  static double headerMedium = 16.fs(fshm);
+  static double headerMedium = 14.fs(fshm);
   static Range headerMediumRange = Range(min: 12, max: 20);
 
-  static double headerSmall = 14.fs(fshs);
+  static double headerSmall = 12.fs(fshs);
   static Range headerSmallRange = Range(min: 12, max: 18);
 
-  static double headerVerySmall = 12.fs(fshvs);
+  static double headerVerySmall = 10.fs(fshvs);
   static Range headerVerySmallRange = Range(min: 10, max: 16);
 
   /// HEADER TEXT FONT SIZE
 
-  static double textBig = 18.fs(fstb);
+  static double textBig = 16.fs(fstb);
   static Range textBigRange = Range(min: 16, max: 22);
 
-  static double textMedium = 16.fs(fstm);
+  static double textMedium = 14.fs(fstm);
   static Range textMediumRange = Range(min: 12, max: 20);
 
-  static double textSmall = 14.fs(fsts);
+  static double textSmall = 12.fs(fsts);
   static Range textSmallRange = Range(min: 12, max: 18);
 
-  static double textVerySmall = 12.fs(fstvs);
+  static double textVerySmall = 10.fs(fstvs);
   static Range textVerySmallRange = Range(min: 10, max: 16);
 
-  static double textVeryVerySmall = 10.fs(fstvvs);
+  static double textVeryVerySmall = 8.fs(fstvvs);
   static Range textVeryVerySmallRange = Range(min: 8, max: 12);
 
   /// Common

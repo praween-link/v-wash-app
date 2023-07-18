@@ -171,6 +171,7 @@ class Scaffo extends StatelessWidget {
         Stack(
           children: [
             Container(
+              // alignment: Alignment.bottomCenter,
               decoration: btmNavBarDecoration ??
                   BoxDecoration(
                       color:
@@ -180,6 +181,7 @@ class Scaffo extends StatelessWidget {
                   top: (cirularItemRadius ?? 25) +
                       (cirularItemBorderWidth ?? 2)),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: newItemsList.asMap().entries.map((item) {
                   return item.value.lebel == 'hiden_circule'
@@ -196,12 +198,14 @@ class Scaffo extends StatelessWidget {
                                       ? item.key
                                       : item.key - 1),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   item.value.icon,
                                   item.value.lebel == null
                                       ? const SizedBox.shrink()
                                       : Text(item.value.lebel ?? '',
                                           style: item.value.textStyle),
+                                  const SizedBox(height: 3),
                                 ],
                               ),
                             ),

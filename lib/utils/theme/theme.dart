@@ -9,11 +9,15 @@ Color lightPrimaryColor = AppColors.primary;
 Color darkPrimaryColor = AppColors.primary.withOpacity(0.8);
 Color appDarkColor = darkPrimaryColor;
 Color appLightColor = lightPrimaryColor;
+//
+// double textHeight
 
 // log(isDarkMode.toString());
 class AppThemes {
   /// Dark Theme
   static ThemeData dartTheme() => ThemeData(
+        primaryColorDark: darkPrimaryColor.withOpacity(0.1),
+
         brightness: Brightness.dark,
         // fontFamily: 'lato',
         fontFamily: 'Jost',
@@ -26,17 +30,20 @@ class AppThemes {
             .withOpacity(0.5), //Colors.blueGrey.withOpacity(0.5),
         dividerTheme: const DividerThemeData(thickness: 0.5, space: 0),
         primaryColor: darkPrimaryColor,
+
         //
         iconTheme: const IconThemeData(color: Colors.white70),
         colorScheme: ColorScheme.dark(
           primary: darkPrimaryColor,
           // onPrimary: darkPrimaryColor,
+          onPrimaryContainer: darkPrimaryColor,
           secondary: Colors.red,
           background: const Color.fromARGB(255, 34, 44, 50),
           //
           shadow: Colors.black.withOpacity(0.2),
         ),
         primaryTextTheme: ThemeModules.appTextStyle(isDark: true),
+
         // textButtonTheme: TextButtonThemeData(
         //     style: ButtonStyle(
         //         textStyle: MaterialStateProperty.all(
@@ -46,6 +53,7 @@ class AppThemes {
   /// ============================================================================
   /// Light Theme
   static ThemeData lightTheme() => ThemeData(
+        primaryColorLight: lightPrimaryColor.withOpacity(0.1),
         brightness: Brightness.light,
         // fontFamily: 'lato',
         fontFamily: 'Jost',
@@ -69,7 +77,7 @@ class AppThemes {
           background: Colors.white70,
           //
           shadow: Colors.grey.shade500.withOpacity(0.2), // Card shadow
-        ),
+        ).copyWith(background: Colors.amber),
         // textButtonTheme: TextButtonThemeData(
         //     style: ButtonStyle(
         //         textStyle: MaterialStateProperty.all(
@@ -88,27 +96,33 @@ class ThemeModules {
   static appTextStyle({bool isDark = false}) => TextTheme(
         bodyMedium: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
+          height: 1.3,
         ),
         bodySmall: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
           fontWeight: FontWeight.w300,
+          height: 1.3,
         ),
         //
         titleLarge: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
           fontWeight: FontWeight.w600,
+          height: 1.3,
         ),
         titleMedium: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
           fontWeight: FontWeight.w600,
+          height: 1.3,
         ),
         titleSmall: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
           fontWeight: FontWeight.w500,
+          height: 1.3,
         ),
         //
         displayMedium: TextStyle(
           color: isDark ? Colors.white70 : AppColors.black,
+          height: 1.3,
         ),
       );
   static appElevatedButtonStyle({bool isDark = false}) =>
@@ -120,6 +134,7 @@ class ThemeModules {
             color: Colors.white70,
             fontSize: 20,
             fontWeight: FontWeight.w600,
+            height: 1.2,
           ),
           elevation: 6,
           shape:

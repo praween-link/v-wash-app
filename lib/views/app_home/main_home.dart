@@ -1,5 +1,6 @@
 import 'dart:developer' as prints;
 
+import 'package:appwash/utils/images/icons_path.dart';
 import 'package:appwash/viewmodel/app_home/main_home_viewmodel.dart';
 import 'package:appwash/routes/paths.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
@@ -25,26 +26,35 @@ class MainHome extends StatelessWidget {
           padding: EdgeInsets.only(top: 5),
           child: Icon(Icons.home, color: AppColors.white, size: 26),
         ),
-        textStyle: const TextStyle(color: AppColors.white),
+        textStyle:
+            TextStyle(color: AppColors.white, fontSize: FontSizes.headerSmall),
         lebel: "Home"),
     BtmNavItem(
-        icon: const Padding(
-            padding: EdgeInsets.only(top: 5),
-            child:
-                Icon(Icons.monetization_on, color: AppColors.white, size: 26)),
-        textStyle: const TextStyle(color: AppColors.white),
+        icon: Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 2),
+          child: Image.asset(
+            AppIcons.rupee,
+            height: 18,
+            width: 18,
+            color: AppColors.white,
+          ),
+        ),
+        textStyle:
+            TextStyle(color: AppColors.white, fontSize: FontSizes.headerSmall),
         lebel: "Wash Plans"),
     BtmNavItem(
         icon: const Padding(
             padding: EdgeInsets.only(top: 5),
             child: Icon(Icons.notifications, color: AppColors.white, size: 26)),
-        textStyle: const TextStyle(color: AppColors.white),
+        textStyle:
+            TextStyle(color: AppColors.white, fontSize: FontSizes.headerSmall),
         lebel: "Notifications"),
     BtmNavItem(
         icon: const Padding(
             padding: EdgeInsets.only(top: 5),
             child: Icon(Icons.settings, color: AppColors.white, size: 26)),
-        textStyle: const TextStyle(color: AppColors.white),
+        textStyle:
+            TextStyle(color: AppColors.white, fontSize: FontSizes.headerSmall),
         lebel: "Settings"),
   ];
 
@@ -52,7 +62,7 @@ class MainHome extends StatelessWidget {
     DashboardScreen(),
     WashPlanScreen(),
     NotificationScreen(),
-    const SettingScreen(),
+    SettingScreen(),
   ];
 
   final MainHomeViewmodel mainHomeVm = Get.put(MainHomeViewmodel());
@@ -139,7 +149,7 @@ class MainHome extends StatelessWidget {
               },
               itemTabs: itemTabs,
               bodyItems: bodyItems,
-              btmNavBarHeight: 60,
+              btmNavBarHeight: 55,
               currentIndex: mainHomeVm.currentScreenIndex.value,
               circularWidgetItem: Icon(Icons.add,
                   color: Theme.of(context).primaryColor, size: 32),

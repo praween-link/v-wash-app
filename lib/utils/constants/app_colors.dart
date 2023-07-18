@@ -25,7 +25,7 @@ class AppColors {
   static const Color greyNormal = Color(0xFF929292);
   static Color red = const Color(0xFFff0000).withOpacity(0.8);
   static Color orange = const Color(0xFFFF8C00);
-  static Color green = const Color(0xFF26E450);
+  static Color green = const Color.fromARGB(255, 13, 153, 51);
   static Color blue = const Color(0xFF5297FF);
   //
   static const Color grey = Color(0xFFc1c5c9);

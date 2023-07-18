@@ -1,15 +1,18 @@
 import 'package:appwash/routes/paths.dart';
-import 'package:appwash/utils/constants/app_colors.dart';
 import 'package:appwash/utils/constants/app_font_size.dart';
 import 'package:appwash/utils/styles/text_styles.dart';
+import 'package:appwash/utils/widgets/common_widgets.dart';
 import 'package:appwash/utils/widgets/dialogs/dialogs.dart';
+import 'package:appwash/viewmodel/app_home/dashboard/settings_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'sub/theme_screen.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  SettingScreen({super.key});
+
+  final SettingsViewmodel settingsViewmodel = Get.put(SettingsViewmodel());
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +20,42 @@ class SettingScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          const SizedBox(height: paddingV),
-          _WidgetSettings.settingTile(context,
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: paddingH),
+            child: Obx(
+              () => CommonWidgets.appImageSlider(
+                  items: settingsViewmodel.sliderImages,
+                  currentIndex: settingsViewmodel.currentSliderIndex.value,
+                  onPageChanged: (index) {
+                    settingsViewmodel.currentSliderIndex.value = index;
+                  }),
+            ),
+          ),
+          const SizedBox(height: paddingVn),
+          WidgetSettings.settingTile(context,
               title: "Account Details",
               onClick: () => Get.toNamed(Routes.ACCOUNT_DETAILS)),
-          _WidgetSettings.settingTile(context,
+          WidgetSettings.settingTile(context,
               title: "My Vehicles",
               onClick: () => Get.toNamed(Routes.MY_VEHICLES)),
-          _WidgetSettings.settingTile(context,
+          WidgetSettings.settingTile(context,
               title: "Histories",
               onClick: () => Get.toNamed(Routes.BOOKING_HISTORY)),
-          _WidgetSettings.settingTile(context,
+          WidgetSettings.settingTile(context,
               title: "Theme",
               onClick: () => Get.to(() => ThemeSettingscreen())),
-          _WidgetSettings.settingTile(context,
-              title: "Logout", titleColor: AppColors.red, onClick: () {
+          WidgetSettings.settingTile(context, title: "Logout", onClick: () {
             AppDialogs.logout(context, confirm: () {});
           }),
-          // _WidgetSettings.settingTile(context,
+          // WidgetSettings.settingTile(context,
           //     title: "Primary 1",
           //     titleColor: const Color(0xFF7d0aa3), onClick: () {
           //   LocalInfoSave.saveData(LocalKeys.primary_color, "0xFF7d0aa3");
           //   // SystemNavigator.pop();
           //   // main();
           // }),
-          // _WidgetSettings.settingTile(context,
+          // WidgetSettings.settingTile(context,
           //     title: "Primary 2",
           //     titleColor: const Color(0xFF5297FF), onClick: () {
           //   LocalInfoSave.saveData(LocalKeys.primary_color, "0xFF5297FF");
@@ -54,7 +68,7 @@ class SettingScreen extends StatelessWidget {
   }
 }
 
-class _WidgetSettings {
+class WidgetSettings {
   static Widget settingTile(context,
           {required String title,
           required Function onClick,

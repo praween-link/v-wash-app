@@ -19,6 +19,8 @@ dependencies:
   carousel_slider: ^4.2.1
   shared_preferences: ^2.2.0
   table_calendar: ^3.0.9
+  syncfusion_flutter_datepicker: ^22.1.38
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

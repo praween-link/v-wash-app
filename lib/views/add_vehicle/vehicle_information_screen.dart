@@ -52,6 +52,7 @@ class VehicleInformationScreen extends StatelessWidget {
             ),
             const SizedBox(height: paddingV),
             _titleWidget(context, "Vechicle Color"),
+            const SizedBox(height: paddingVn),
             SizedBox(
               height: 50,
               child: ListView.builder(
@@ -73,6 +74,9 @@ class VehicleInformationScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               color: AppColors.getColor(vehicleInformationVm
                                   .vehicleColors[index - 1]),
+                              border: Border.all(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  width: 1),
                             ),
                           ),
                         );

@@ -19,14 +19,12 @@ class OtpVerificationScreen extends StatelessWidget {
         child: Column(
           children: [
             spaceHeight,
-            Text(
-              "OTP Verification",
-              style: TextStyles.authMainTitle(context),
-              textAlign: TextAlign.center,
-            ),
+            Text("OTP Verification",
+                style: TextStyles.authMainTitle(context),
+                textAlign: TextAlign.center),
             const SizedBox(height: 8),
             Text(
-              "We have send the OTP on 9882761105 will apply auto to the fields",
+              "We have send the OTP on +91 9882761105\nwill apply auto to the fields",
               style: TextStyles.normalText(context, isGrey: true),
               textAlign: TextAlign.center,
             ),
@@ -89,7 +87,8 @@ class OtpVerificationScreen extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: 'I didn’t receive a code! ',
-                style: TextStyles.normalText(context),
+                style: TextStyles.normalText(context,
+                    color: Theme.of(context).textTheme.bodySmall!.color),
                 children: <TextSpan>[
                   TextSpan(
                       text: 'Resend',

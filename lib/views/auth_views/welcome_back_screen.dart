@@ -52,6 +52,53 @@ class WelcomeBackScreen extends StatelessWidget {
                 Get.toNamed(Routes.OTPVERIFICATION);
               },
             ),
+            spaceHeight,
+            spaceHeight,
+            Row(
+              children: [
+                Flexible(
+                    flex: 1,
+                    child: _divider(context,
+                        margin: const EdgeInsets.only(left: paddingH))),
+                spaceWidth,
+                Text("OR", style: TextStyles.smallText(context)),
+                spaceWidth,
+                Flexible(
+                    flex: 1,
+                    child: _divider(context,
+                        margin: const EdgeInsets.only(right: paddingH))),
+              ],
+            ),
+            spaceHeight,
+            spaceHeight,
+            CommonWidgets.button(
+              context,
+              title: "Create Accout",
+              onClick: () {
+                Get.toNamed(Routes.SIGNUP);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _divider(BuildContext context, {EdgeInsetsGeometry? margin}) {
+    return Container(
+      height: 1,
+      margin: margin,
+      decoration: BoxDecoration(
+        // color: Theme.of(context).primaryColor.withOpacity(0.5),
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Theme.of(context).scaffoldBackgroundColor,
+            Theme.of(context).primaryColor.withOpacity(0.5),
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor.withOpacity(0.5),
+            Theme.of(context).scaffoldBackgroundColor,
           ],
         ),
       ),

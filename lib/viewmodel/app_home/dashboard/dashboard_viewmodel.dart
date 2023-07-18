@@ -14,7 +14,7 @@ class DashboardViewmodel extends GetxController {
   var dashCatForUser = <DashCat>[
     DashCat(title: "appwash Wallet", assetIcon: AppIcons.wallet),
     DashCat(title: "Rewards", assetIcon: AppIcons.rewards),
-    DashCat(title: "Refer & Get 100", assetIcon: AppIcons.referGet),
+    DashCat(title: "Refer & Get ₹100", assetIcon: AppIcons.referGet),
   ].obs;
 }
 
@@ -45,7 +45,7 @@ class HomeDummyData {
     MyBooking(
       id: '1',
       title: "Bajaj Pulser 220",
-      bookedDuration: "22 Sep 2022 - 12 Oct 2022",
+      bookedDuration: "22 Sep 2022",
       vehicleId: "HP36D5203",
       price: 56,
       singleBooking: false,
@@ -53,7 +53,7 @@ class HomeDummyData {
     MyBooking(
       id: '1',
       title: "Bajaj Pulser 220",
-      bookedDuration: "22 Sep 2022 - 12 Oct 2022",
+      bookedDuration: "22 Sep 2022",
       vehicleId: "HP36D5203",
       price: 56,
       singleBooking: true,
@@ -61,7 +61,7 @@ class HomeDummyData {
     MyBooking(
       id: '1',
       title: "Bajaj Pulser 220",
-      bookedDuration: "22 Sep 2022 - 12 Oct 2022",
+      bookedDuration: "22 Sep 2022",
       vehicleId: "HP36D5203",
       price: 56,
       singleBooking: false,
@@ -69,7 +69,7 @@ class HomeDummyData {
     MyBooking(
       id: '1',
       title: "Bajaj Pulser 220",
-      bookedDuration: "22 Sep 2022 - 12 Oct 2022",
+      bookedDuration: "22 Sep 2022",
       vehicleId: "HP36D5203",
       price: 56,
       singleBooking: false,
@@ -77,7 +77,7 @@ class HomeDummyData {
     MyBooking(
       id: '1',
       title: "Bajaj Pulser 220",
-      bookedDuration: "22 Sep 2022 - 12 Oct 2022",
+      bookedDuration: "22 Sep 2022",
       vehicleId: "HP36D5203",
       price: 56,
       singleBooking: false,

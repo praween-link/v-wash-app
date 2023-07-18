@@ -67,7 +67,6 @@ class MyApp extends StatelessWidget {
             // Routes
             initialRoute: AppRoutes.INITIAL,
             getPages: AppRoutes.routes,
-            // home: const MyAppCS(),
           ),
         );
       },

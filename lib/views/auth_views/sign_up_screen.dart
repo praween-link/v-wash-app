@@ -18,125 +18,138 @@ class SignUpScreen extends StatelessWidget {
     // print("HHHHHHHHHHHHHH: h: $sfsHeight, w: $sfsWidth");
     // print(
     //     "Check Validation: ${Validations.check(CheckValid(email: 'Hello@g.com', firstName: "Rohan"))}");
-    return Scaffo(
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Obx(
-          () => Column(
-            children: [
-              spaceHeight,
-              Text(
-                "Create Account",
-                style: TextStyles.authMainTitle(context),
-                textAlign: TextAlign.center,
-              ),
-              spaceHeight,
-              CommonWidgets.inputField(
-                context,
-                title: "First Name",
-                hint: "Enter First Name",
-                textInputType: TextInputType.name,
-                validationMsg: authViewModel.firstNameStatus(msg: true),
-                validationStatus: authViewModel.firstNameStatus(),
-                inputFormatters: [InputFormates.onlyLetterSpace],
-                maxLength: InputLength.firstNameMax,
-                onChanged: (text) {
-                  authViewModel.updateSignUpData(fname: text);
-                },
-              ),
-              spaceHeight,
-              CommonWidgets.inputField(
-                context,
-                title: "Last Name",
-                hint: "Enter Last Name",
-                textInputType: TextInputType.name,
-                validationMsg: authViewModel.lastNameStatus(msg: true),
-                validationStatus: authViewModel.lastNameStatus(),
-                inputFormatters: [InputFormates.onlyLetterSpace],
-                maxLength: InputLength.lastNameMax,
-                onChanged: (text) {
-                  authViewModel.updateSignUpData(lname: text);
-                },
-              ),
-              spaceHeight,
-              CommonWidgets.inputField(
-                context,
-                title: "Email",
-                hint: "Enter Email",
-                textInputType: TextInputType.emailAddress,
-                inputFormatters: [InputFormates.emojiDeny],
-                validationMsg: authViewModel.emailStatus(msg: true),
-                validationStatus: authViewModel.emailStatus(),
-                maxLength: InputLength.emailMax,
-                onChanged: (text) {
-                  authViewModel.updateSignUpData(emailId: text);
-                },
-              ),
-              spaceHeight,
-              spaceHeight,
-              CommonWidgets.button(
-                context,
-                // color: const Color(0xff34c0eb),
-                title: "Create Account",
-                onClick: () {
-                  print("${{
-                    'f-name': authViewModel.firstName,
-                    'l-name': authViewModel.lastName,
-                    'email': authViewModel.email,
-                  }}");
-                  authViewModel.submit(context);
-                  // Fluttertoast.showToast(
-                  //   msg: '이 기기에서 웹 페이지를 열 수가 없습니다.',
-                  //   // timeInSecForIosWeb: 2,
-                  //   backgroundColor: CupertinoColors.activeOrange,
-                  //   textColor: Colors.white,
-                  //   fontSize: 14,
-                  //   // gravity: ToastGravity.SNACKBAR,
-                  // );
-
-                  // print("Submit");
-                  // Get.to(() => const KeyboardHeightChecker());
-                  // Get.toNamed(Routes.WELCOMEBACK);
-                },
-              ),
-              spaceHeight,
-              spaceHeight,
-              Row(
+    return Stack(
+      children: [
+        Scaffo(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Obx(
+              () => Column(
                 children: [
-                  Flexible(
-                      flex: 1,
-                      child: _divider(context,
-                          margin: const EdgeInsets.only(left: paddingH))),
-                  spaceWidth,
-                  Text("sign up with", style: TextStyles.smallText(context)),
-                  spaceWidth,
-                  Flexible(
-                      flex: 1,
-                      child: _divider(context,
-                          margin: const EdgeInsets.only(right: paddingH))),
+                  spaceHeight,
+                  Text(
+                    "Create Account",
+                    style: TextStyles.authMainTitle(context),
+                    textAlign: TextAlign.center,
+                  ),
+                  spaceHeight,
+                  CommonWidgets.inputField(
+                    context,
+                    title: "First Name",
+                    hint: "Enter First Name",
+                    textInputType: TextInputType.name,
+                    validationMsg: authViewModel.firstNameStatus(msg: true),
+                    validationStatus: authViewModel.firstNameStatus(),
+                    inputFormatters: [InputFormates.onlyLetterSpace],
+                    maxLength: InputLength.firstNameMax,
+                    onChanged: (text) {
+                      authViewModel.updateSignUpData(fname: text);
+                    },
+                  ),
+                  spaceHeight,
+                  CommonWidgets.inputField(
+                    context,
+                    title: "Last Name",
+                    hint: "Enter Last Name",
+                    textInputType: TextInputType.name,
+                    validationMsg: authViewModel.lastNameStatus(msg: true),
+                    validationStatus: authViewModel.lastNameStatus(),
+                    inputFormatters: [InputFormates.onlyLetterSpace],
+                    maxLength: InputLength.lastNameMax,
+                    onChanged: (text) {
+                      authViewModel.updateSignUpData(lname: text);
+                    },
+                  ),
+                  spaceHeight,
+                  CommonWidgets.inputField(
+                    context,
+                    title: "Email",
+                    hint: "Enter Email",
+                    textInputType: TextInputType.emailAddress,
+                    inputFormatters: [InputFormates.emojiDeny],
+                    validationMsg: authViewModel.emailStatus(msg: true),
+                    validationStatus: authViewModel.emailStatus(),
+                    maxLength: InputLength.emailMax,
+                    onChanged: (text) {
+                      authViewModel.updateSignUpData(emailId: text);
+                    },
+                  ),
+                  spaceHeight,
+                  spaceHeight,
+                  CommonWidgets.button(
+                    context,
+                    // color: const Color(0xff34c0eb),
+                    title: "Create Account",
+                    onClick: () {
+                      print("${{
+                        'f-name': authViewModel.firstName,
+                        'l-name': authViewModel.lastName,
+                        'email': authViewModel.email,
+                      }}");
+                      authViewModel.submit(context);
+                      // Fluttertoast.showToast(
+                      //   msg: '이 기기에서 웹 페이지를 열 수가 없습니다.',
+                      //   // timeInSecForIosWeb: 2,
+                      //   backgroundColor: CupertinoColors.activeOrange,
+                      //   textColor: Colors.white,
+                      //   fontSize: 14,
+                      //   // gravity: ToastGravity.SNACKBAR,
+                      // );
+
+                      // print("Submit");
+                      // Get.to(() => const KeyboardHeightChecker());
+                      // Get.toNamed(Routes.WELCOMEBACK);
+                    },
+                  ),
+                  spaceHeight,
+                  spaceHeight,
+                  Row(
+                    children: [
+                      Flexible(
+                          flex: 1,
+                          child: _divider(context,
+                              margin: const EdgeInsets.only(left: paddingH))),
+                      spaceWidth,
+                      Text("sign up with",
+                          style: TextStyles.smallText(context)),
+                      spaceWidth,
+                      Flexible(
+                        flex: 1,
+                        child: _divider(context,
+                            margin: const EdgeInsets.only(right: paddingH)),
+                      ),
+                    ],
+                  ),
+                  spaceHeight,
+                  spaceHeight,
+                  CommonWidgets.button(
+                    context,
+                    onClick: () {},
+                    title: "Signup",
+                    withBorder: true,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Sign up with Google",
+                            style: TextStyles.normalText(context)),
+                        const SizedBox(width: paddingH),
+                        Image.asset(AppIcons.googleIcon, height: 25, width: 25),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              spaceHeight,
-              spaceHeight,
-              CommonWidgets.button(
-                context,
-                onClick: () {},
-                title: "Signup",
-                withBorder: true,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Sign up with Google",
-                        style: TextStyles.normalText(context)),
-                    const SizedBox(width: paddingH),
-                    Image.asset(AppIcons.googleIcon, height: 25, width: 25),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 0,
+          left: 0,
+          child: SafeArea(
+            child: CommonWidgets.circularBack(),
+          ),
+        ),
+      ],
     );
   }
 

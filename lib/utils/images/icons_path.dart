@@ -14,6 +14,8 @@ class AppIcons {
   static String settings = '${iconBasePath}settings.png';
   static String home = '${iconBasePath}home.png';
   static String washPlan = '${iconBasePath}wash_plan.png';
+  static String checked = '${iconBasePath}checked.png';
+  static String rupee = '${iconBasePath}rupee.png';
   //
 
   static String wallet = '${iconBasePath}wallet.png';

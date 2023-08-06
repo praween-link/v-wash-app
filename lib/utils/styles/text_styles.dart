@@ -9,8 +9,12 @@ class TextStyles {
       TextStyle(fontSize: FontSizes.headerBig, fontWeight: FontWeight.w600);
 
   /// Auth
-  static TextStyle authMainTitle(context) =>
-      TextStyle(fontSize: FontSizes.headerVeryVeryBig);
+  static TextStyle authMainTitle(context,
+          {Color? color, bool isGrey = false, FontWeight? fontWeight}) =>
+      TextStyle(
+          fontSize: FontSizes.headerVeryVeryBig,
+          color: color ?? (isGrey ? AppColors.greyNormal : null),
+          fontWeight: fontWeight);
 
   /// Input Field
   static TextStyle inputFieldTitle(context) =>

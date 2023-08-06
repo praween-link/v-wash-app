@@ -65,7 +65,9 @@ class CommonWidgets {
                 borderRadius: BorderRadius.circular(5),
                 border: withBorder
                     ? Border.all(color: color ?? Theme.of(context).primaryColor)
-                    : null),
+                    : Border.all(
+                        color: (color ?? Theme.of(context).primaryColor)
+                            .withOpacity(bgOpacity ?? 1))),
             child: child ??
                 Text(
                   title ?? 'Submit',
@@ -90,7 +92,8 @@ class CommonWidgets {
           String? counterText,
           String? validationMsg,
           ValidationStatus validationStatus = ValidationStatus.NONE,
-          List<TextInputFormatter>? inputFormatters}) =>
+          List<TextInputFormatter>? inputFormatters,
+          int? maxLines}) =>
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -116,15 +119,17 @@ class CommonWidgets {
                             children: <TextSpan>[
                               const TextSpan(text: ' +91 '),
                               TextSpan(
-                                  text: '| ',
-                                  style: TextStyles.normalText(context,
-                                      isGrey: true)),
+                                  text: '│ ',
+                                  style: TextStyles.largText(context,
+                                      isGrey: true,
+                                      fontWeight: FontWeight.w100)),
                             ],
                           ),
                           textAlign: TextAlign.center,
                         )),
               TextField(
                 maxLength: maxLength,
+                maxLines: maxLines,
                 controller: controller,
                 onChanged: onChanged,
                 style:
@@ -138,7 +143,7 @@ class CommonWidgets {
                   prefix: !isPhoneInput
                       ? null
                       : Container(
-                          color: Colors.amber,
+                          // color: Colors.amber,
                           child: RichText(
                             text: TextSpan(
                               text: '🇮🇳',
@@ -147,10 +152,11 @@ class CommonWidgets {
                               children: <TextSpan>[
                                 const TextSpan(text: ' +91 '),
                                 TextSpan(
-                                    text: '| ',
-                                    style: TextStyles.normalText(context,
+                                    text: '│ ',
+                                    style: TextStyles.largText(context,
                                         isGrey: true,
-                                        color: Colors.transparent)),
+                                        color: Colors.transparent,
+                                        fontWeight: FontWeight.w100)),
                               ],
                             ),
                           ),
@@ -308,119 +314,241 @@ class CommonWidgets {
     bool isSelectable = false,
     bool isSelected = false,
     required Function onClick,
-  }) =>
-      Container(
-        width: double.infinity,
-        padding: !isSelected
-            ? const EdgeInsets.symmetric(horizontal: 5, vertical: 5)
-            : const EdgeInsets.only(top: 2, left: 6, right: 2, bottom: 8),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? (cardColor ?? Theme.of(context).primaryColor).withOpacity(0.2)
-              : null, // cardColor ?? Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(20),
-          border: isSelected
-              ? Border.all(
-                  color: (cardColor ?? Theme.of(context).primaryColor).withOpacity(
-                      0.4), //(cardColor ?? Theme.of(context).primaryColor).withOpacity(0.6),
-                  width: 1.5)
-              : null,
-        ),
-        child: GestureDetector(
-          onTap: () => onClick(),
-          child: Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: paddingHn, vertical: paddingVn),
-                decoration: !isSelected
-                    ? BoxDecoration(
-                        color: cardColor ?? Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(17),
-                      )
-                    : BoxDecoration(
-                        color: cardColor ?? Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(17),
+  }) {
+    return Container(
+      // width: double.infinity,
+      // padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      // decoration: BoxDecoration(
+      //   color: isSelected
+      //       ? (cardColor ?? Theme.of(context).primaryColor).withOpacity(0.2)
+      //       : null, // cardColor ?? Theme.of(context).primaryColor,
+      //   borderRadius: BorderRadius.circular(20),
+      //   border: isSelected
+      //       ? Border.all(
+      //           color: (cardColor ?? Theme.of(context).primaryColor).withOpacity(
+      //               0.4), //(cardColor ?? Theme.of(context).primaryColor).withOpacity(0.6),
+      //           width: 1.5)
+      //       : null,
+      // ),
+      child: GestureDetector(
+        onTap: () => onClick(),
+        child: Stack(
+          children: [
+            // Container(
+            //   padding: const EdgeInsets.symmetric(
+            //       horizontal: paddingHn, vertical: paddingVn),
+            //   decoration: !isSelected
+            //       ? BoxDecoration(
+            //           color: (cardColor ?? Theme.of(context).primaryColor)
+            //               .withOpacity(0.8),
+            //           borderRadius: BorderRadius.circular(17),
+            //         )
+            //       : BoxDecoration(
+            //           color: cardColor ?? Theme.of(context).primaryColor,
+            //           borderRadius: BorderRadius.circular(17),
+            //         ),
+            // child:
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: // Theme.of(context).scaffoldBackgroundColor,
+                      (cardColor ?? Theme.of(context).primaryColor),
+                  boxShadow: !isSelected
+                      ? []
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.6),
+                            spreadRadius: 5,
+                            offset: const Offset(0, 10),
+                            blurRadius: 10,
+                          ),
+                          // BoxShadow(
+                          //   color: Colors.black.withOpacity(0.1),
+                          //   spreadRadius: 10,
+                          //   offset: const Offset(-2, 0),
+                          //   blurRadius: 5,
+                          // ),
+                          BoxShadow(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                        ]),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: paddingHn, vertical: paddingVn),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        image ?? AppIcons.splashLogo,
+                        color: AppColors.white,
+                        height: 80,
+                        width: 80,
                       ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          image ?? AppIcons.splashLogo,
-                          color: AppColors.white,
-                          height: 80,
-                          width: 80,
+                      const SizedBox(width: paddingH),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "₹${amount.toStringAsFixed(0)}/ ",
+                            style: TextStyles.largText(context,
+                                fontSize: 24, fontWeight: FontWeight.w600),
+                            children: [
+                              TextSpan(
+                                text: planValidity,
+                                style: TextStyles.largText(context,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: paddingH),
+                      ),
+                    ],
+                  ),
+                  // const SizedBox(height: paddingVn),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: contents == null ? 0 : contents.length,
+                    itemBuilder: (contex, index) => Row(
+                      children: [
+                        const Icon(
+                          Icons.check,
+                          color: AppColors.white,
+                          size: 14,
+                        ),
+                        const SizedBox(width: paddingHn),
                         Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              text: "₹${amount.toStringAsFixed(0)}/ ",
-                              style: TextStyles.largText(context,
-                                  fontSize: 24, fontWeight: FontWeight.w600),
-                              children: [
-                                TextSpan(
-                                  text: planValidity,
-                                  style: TextStyles.largText(context,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                          child: Text(
+                            contents![index],
+                            style: TextStyles.smallText(context,
+                                color: AppColors.white),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: paddingVn),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: contents == null ? 0 : contents.length,
-                      itemBuilder: (contex, index) => Row(
-                        children: [
-                          const Icon(
-                            Icons.check,
-                            color: AppColors.white,
-                            size: 14,
-                          ),
-                          const SizedBox(width: paddingHn),
-                          Expanded(
-                            child: Text(
-                              contents![index],
-                              style: TextStyles.smallText(context,
-                                  color: AppColors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Positioned(
-                top: 5,
-                right: 5,
-                child: isSelected
-                    ? Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: Colors.white.withOpacity(0.3),
-                                width: 0.8)),
-                        padding: const EdgeInsets.all(3),
-                        child: Image.asset(
-                          AppIcons.checked,
-                          height: 18,
-                          width: 18,
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-              )
-            ],
-          ),
+            ),
+            // ),
+          ],
         ),
-      );
+      ),
+    );
+
+    // return Container(
+    //   width: double.infinity,
+    //   padding: !isSelected
+    //       ? const EdgeInsets.symmetric(horizontal: 5, vertical: 5)
+    //       : const EdgeInsets.only(top: 2, left: 6, right: 2, bottom: 8),
+    //   decoration: BoxDecoration(
+    //     color: isSelected
+    //         ? (cardColor ?? Theme.of(context).primaryColor).withOpacity(0.2)
+    //         : null, // cardColor ?? Theme.of(context).primaryColor,
+    //     borderRadius: BorderRadius.circular(20),
+    //     border: isSelected
+    //         ? Border.all(
+    //             color: (cardColor ?? Theme.of(context).primaryColor).withOpacity(
+    //                 0.4), //(cardColor ?? Theme.of(context).primaryColor).withOpacity(0.6),
+    //             width: 1.5)
+    //         : null,
+    //   ),
+    //   child: GestureDetector(
+    //     onTap: () => onClick(),
+    //     child: Stack(
+    //       children: [
+    //         Container(
+    //           padding: const EdgeInsets.symmetric(
+    //               horizontal: paddingHn, vertical: paddingVn),
+    //           decoration: !isSelected
+    //               ? BoxDecoration(
+    //                   color: (cardColor ?? Theme.of(context).primaryColor)
+    //                       .withOpacity(0.8),
+    //                   borderRadius: BorderRadius.circular(17),
+    //                 )
+    //               : BoxDecoration(
+    //                   color: cardColor ?? Theme.of(context).primaryColor,
+    //                   borderRadius: BorderRadius.circular(17),
+    //                 ),
+    //           child: Column(
+    //             children: [
+    //               Row(
+    //                 children: [
+    //                   Image.asset(
+    //                     image ?? AppIcons.splashLogo,
+    //                     color: AppColors.white,
+    //                     height: 80,
+    //                     width: 80,
+    //                   ),
+    //                   const SizedBox(width: paddingH),
+    //                   Expanded(
+    //                     child: RichText(
+    //                       text: TextSpan(
+    //                         text: "₹${amount.toStringAsFixed(0)}/ ",
+    //                         style: TextStyles.largText(context,
+    //                             fontSize: 24, fontWeight: FontWeight.w600),
+    //                         children: [
+    //                           TextSpan(
+    //                             text: planValidity,
+    //                             style: TextStyles.largText(context,
+    //                                 fontWeight: FontWeight.w400),
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //               const SizedBox(height: paddingVn),
+    //               ListView.builder(
+    //                 shrinkWrap: true,
+    //                 physics: const NeverScrollableScrollPhysics(),
+    //                 itemCount: contents == null ? 0 : contents.length,
+    //                 itemBuilder: (contex, index) => Row(
+    //                   children: [
+    //                     const Icon(
+    //                       Icons.check,
+    //                       color: AppColors.white,
+    //                       size: 14,
+    //                     ),
+    //                     const SizedBox(width: paddingHn),
+    //                     Expanded(
+    //                       child: Text(
+    //                         contents![index],
+    //                         style: TextStyles.smallText(context,
+    //                             color: AppColors.white),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //         Positioned(
+    //           top: 5,
+    //           right: 5,
+    //           child: isSelected
+    //               ? Container(
+    //                   decoration: BoxDecoration(
+    //                       color: Colors.white.withOpacity(0.2),
+    //                       shape: BoxShape.circle,
+    //                       border: Border.all(
+    //                           color: Colors.white.withOpacity(0.3),
+    //                           width: 0.8)),
+    //                   padding: const EdgeInsets.all(3),
+    //                   child: Image.asset(
+    //                     AppIcons.checked,
+    //                     height: 18,
+    //                     width: 18,
+    //                   ),
+    //                 )
+    //               : const SizedBox.shrink(),
+    //         ), //
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
 
   ///
   static Widget appImageSlider(
@@ -484,6 +612,59 @@ class CommonWidgets {
             ),
           ),
         ],
+      );
+
+  /// Radio
+  static Widget radioTile(context,
+          {required String title,
+          String? subtitle,
+          required int selected,
+          required int value,
+          double? spaceBetween,
+          TextStyle? titleStyle,
+          required Function(int) onChange}) =>
+      InkWell(
+        onTap: () {
+          onChange(value);
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Radio(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              visualDensity: const VisualDensity(
+                horizontal: VisualDensity.minimumDensity,
+                vertical: VisualDensity.minimumDensity,
+              ),
+              value: value,
+              groupValue: selected,
+              fillColor:
+                  MaterialStateProperty.all(Theme.of(context).primaryColor),
+              activeColor: Theme.of(context).primaryColor,
+              autofocus: true,
+              onChanged: (value) {
+                onChange(value ?? -1);
+              },
+            ),
+            SizedBox(width: spaceBetween ?? paddingHn),
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  text: '$title ',
+                  style: titleStyle ??
+                      TextStyles.normalText(context,
+                          color: Theme.of(context).textTheme.bodyMedium!.color),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: subtitle ?? '',
+                        style: TextStyles.verySmallText(context, isGrey: true)),
+                  ],
+                ),
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
       );
 }
 

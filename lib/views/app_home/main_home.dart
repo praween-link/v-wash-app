@@ -31,7 +31,7 @@ class MainHome extends StatelessWidget {
         lebel: "Home"),
     BtmNavItem(
         icon: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 2),
+          padding: const EdgeInsets.only(top: 8, bottom: 5),
           child: Image.asset(
             AppIcons.rupee,
             height: 18,
@@ -80,6 +80,9 @@ class MainHome extends StatelessWidget {
       },
       child: Obx(
         () => Scaffo(
+            // backgroundColor: mainHomeVm.currentScreenIndex.value == 1
+            //     ? const Color(0xffcdcccf)
+            //     : null,
             appDrawer: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,6 +145,7 @@ class MainHome extends StatelessWidget {
             ),
             appBarBottomChild: const SizedBox.shrink(),
             scaffoBtmNavBar: ScaffoBtmNavBar(
+              selectedItem: mainHomeVm.currentScreenIndex.value,
               onChange: (index) {
                 mainHomeVm.currentScreenIndex.value = index;
                 prints.log(
@@ -158,10 +162,10 @@ class MainHome extends StatelessWidget {
               cirularItemBorderWidth: 3,
               btmNavBarDecoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
+                // borderRadius: const BorderRadius.only(
+                //   topLeft: Radius.circular(10),
+                //   topRight: Radius.circular(10),
+                // ),
               ),
             ),
             child: bodyItems[mainHomeVm.currentScreenIndex.value]),

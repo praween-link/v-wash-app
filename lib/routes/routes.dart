@@ -1,4 +1,4 @@
-
+import 'package:appwash/views/common_views/sps.dart';
 import 'package:appwash/views/views.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +9,7 @@ class AppRoutes {
 
   static final routes = [
     /// Splash
-    GetPage(name: Routes.SPLASH, page: () => const SplashScreen()),
+    GetPage(name: Routes.SPLASH, page: () => const SpScr()),
 
     /// Auth
     GetPage(name: Routes.SIGNUP, page: () => SignUpScreen()),

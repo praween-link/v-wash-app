@@ -1,3 +1,5 @@
+import 'package:appwash/utils/images/icons_path.dart';
+import 'package:appwash/utils/widgets/dialogs/dialogs.dart';
 import 'package:appwash/utils/widgets/image_view.dart';
 import 'package:appwash/viewmodel/app_home/dashboard/rewards_viewmodel.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
@@ -86,6 +88,7 @@ class BookedDetailsScreen extends StatelessWidget {
                         Icon(
                           Icons.calendar_month,
                           size: FontSizes.normal,
+                          color: Theme.of(context).primaryColor,
                         ),
                         const SizedBox(width: paddingHn / 2),
                         InkWell(
@@ -111,6 +114,7 @@ class BookedDetailsScreen extends StatelessWidget {
                                               width: 0.5),
                                         ),
                                         child: SfDateRangePicker(
+                                          showNavigationArrow: true,
                                           initialSelectedDates: [
                                             DateTime(2023, 7, 13),
                                             DateTime(2023, 7, 14),
@@ -191,7 +195,8 @@ class BookedDetailsScreen extends StatelessWidget {
 
                       _scheduledTile(context,
                           todayIsActive: false,
-                          scheduleStatus: ScheduleStatus.UPCOMING),
+                          scheduleStatus: ScheduleStatus.NONE,
+                          onClick: () {}),
                       const SizedBox(height: paddingVn),
 
                       Text(
@@ -204,13 +209,19 @@ class BookedDetailsScreen extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => _scheduledTile(
-                              context,
-                              scheduleStatus: index % 2 == 0
-                                  ? ScheduleStatus.PROGRESS
-                                  : ScheduleStatus.COMPLETED),
+                                  context,
+                                  scheduleStatus: index % 2 == 0
+                                      ? ScheduleStatus.COMPLETED
+                                      : ScheduleStatus.COMPLETED_RATED,
+                                  onClick: () {}, rateNow: () {
+                                AppDialogs.show(context,
+                                    barrierDismissible: false,
+                                    child: reviewWidget(context),
+                                    confirm: null);
+                              }),
                           separatorBuilder: (_, __) =>
                               const SizedBox(height: paddingVn),
-                          itemCount: 5),
+                          itemCount: 10),
                       const SizedBox(height: paddingVn),
                     ],
                   ),
@@ -224,109 +235,295 @@ class BookedDetailsScreen extends StatelessWidget {
     );
   }
 
-  //
-  Widget _scheduledTile(context,
-          {bool todayIsActive = false,
-          ScheduleStatus scheduleStatus = ScheduleStatus.UPCOMING}) =>
-      Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: paddingHn, vertical: paddingVn),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: todayIsActive ? Theme.of(context).primaryColor : null,
-          border: Border.all(
-              color: Theme.of(context).primaryColor.withOpacity(0.2)),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5,
-              color: Theme.of(context).colorScheme.shadow,
-              offset: const Offset(1, 5),
-              spreadRadius: 0,
-            ),
-            BoxShadow(
-              color: Theme.of(context).scaffoldBackgroundColor,
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+  Stack reviewWidget(BuildContext context) {
+    return Stack(
+      children: [
+        Column(
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.calendar_month, size: 20),
-                      const SizedBox(width: paddingHn),
-                      Expanded(
-                        child: Text(
-                          "03 Sep 2022",
-                          style: TextStyles.normalText(context,
-                              color: todayIsActive ? AppColors.white : null),
+            Image.asset(
+              AppIcons.appLogo,
+              height: 80,
+              width: 80,
+            ),
+            const Text("Your opinion matter to us!"),
+            const SizedBox(height: paddingVn),
+            CommonWidgets.rateWidget(4),
+            const SizedBox(height: paddingV),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonWidgets.inputField(
+                  context,
+                  title: "Write a Review",
+                  hint: "Write a review...",
+                  textInputType: TextInputType.name,
+                  maxLength: 500,
+                  maxLines: 5,
+                  onChanged: (text) {
+                    //
+                  },
+                ),
+                const SizedBox(height: paddingVn),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 5,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .shadow
+                              .withOpacity(0.3),
+                          offset: const Offset(1, 5),
+                          spreadRadius: 0,
                         ),
+                        BoxShadow(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                      ]),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.camera_alt_rounded,
+                        size: 26,
+                      ),
+                      Text(
+                        "Upload image",
+                        style: TextStyles.veryVerySmallText(context),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: paddingH + 8),
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Preferred TimeSlot  9:00 AM - 10:00 AM',
-                        style: TextStyles.verySmallText(context, isGrey: true),
-                        // children: <TextSpan>[
-                        //   TextSpan(
-                        //       text: "John | 08AM - 09AM",
-                        //       style: TextStyles.verySmallText(context,
-                        //           isGrey: true, fontStyle: FontStyle.normal)),
-                        // ],
-                      ),
-                      maxLines: 2,
+                ),
+              ],
+            ),
+            const SizedBox(height: paddingV),
+            CommonWidgets.button(
+              context,
+              onClick: () {
+                Get.back();
+              },
+            ),
+            const SizedBox(height: paddingVn),
+          ],
+        ),
+        //
+        Positioned(
+            top: 0,
+            right: 0,
+            child: InkWell(
+              onTap: () => Get.back(),
+              child: const SizedBox(child: Icon(Icons.close)),
+            ))
+      ],
+    );
+  }
+
+  //
+  Widget _scheduledTile(context,
+          {bool todayIsActive = false,
+          ScheduleStatus scheduleStatus = ScheduleStatus.UPCOMING,
+          required Function onClick,
+          Function? rateNow}) =>
+      GestureDetector(
+        onTap: () => onClick(),
+        child: Stack(
+          children: [
+            Container(
+              height: [ScheduleStatus.COMPLETED, ScheduleStatus.COMPLETED_RATED]
+                      .contains(scheduleStatus)
+                  ? 75
+                  : 55,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: paddingHn, vertical: paddingVn),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: todayIsActive ? Theme.of(context).primaryColor : null,
+                border: Border.all(
+                    color: Theme.of(context).primaryColor.withOpacity(0.2)),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    color: Theme.of(context).colorScheme.shadow,
+                    offset: const Offset(1, 5),
+                    spreadRadius: 0,
+                  ),
+                  BoxShadow(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_month, size: 20),
+                            const SizedBox(width: paddingHn),
+                            Expanded(
+                              child: Text(
+                                "03 Sep 2022",
+                                style: TextStyles.normalText(context,
+                                    color:
+                                        todayIsActive ? AppColors.white : null),
+                                maxLines: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: paddingH + 8),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Preferred TimeSlot  9:00 AM - 10:00 AM',
+                              style: TextStyles.verySmallText(context,
+                                  isGrey: true),
+                              // children: <TextSpan>[
+                              //   TextSpan(
+                              //       text: "John | 08AM - 09AM",
+                              //       style: TextStyles.verySmallText(context,
+                              //           isGrey: true, fontStyle: FontStyle.normal)),
+                              // ],
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                        todayIsActive
+                            ? const SizedBox.shrink()
+                            : const SizedBox(height: 3),
+                        todayIsActive
+                            ? const SizedBox.shrink()
+                            : [
+                                ScheduleStatus.COMPLETED,
+                                ScheduleStatus.COMPLETED_RATED
+                              ].contains(scheduleStatus)
+                                ? scheduleStatus ==
+                                        ScheduleStatus.COMPLETED_RATED
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: paddingH + 8),
+                                        child: CommonWidgets.rateWidget(4),
+                                      )
+                                    : InkWell(
+                                        onTap: rateNow == null
+                                            ? () {}
+                                            : () => rateNow(),
+                                        child: Text(
+                                          "Rate us!",
+                                          style: TextStyles.normalText(context,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                          maxLines: 1,
+                                        ),
+                                      )
+                                : const SizedBox.shrink(),
+                      ],
                     ),
                   ),
-                  todayIsActive
+                  scheduleStatus == ScheduleStatus.NONE
                       ? const SizedBox.shrink()
-                      : const SizedBox(height: 3),
-                  todayIsActive
-                      ? const SizedBox.shrink()
-                      : scheduleStatus == ScheduleStatus.COMPLETED
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.only(left: paddingH + 8),
-                              child: CommonWidgets.rateWidget(4),
-                            )
-                          : const SizedBox.shrink(),
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const SizedBox(),
+                            Text(
+                              [
+                                ScheduleStatus.COMPLETED,
+                                ScheduleStatus.COMPLETED_RATED
+                              ].contains(scheduleStatus)
+                                  ? "Completed"
+                                  : scheduleStatus == ScheduleStatus.PROGRESS
+                                      ? "In Progress"
+                                      : "Upcoming",
+                              style: TextStyles.smallText(context,
+                                  color: todayIsActive
+                                      ? AppColors.white
+                                      : [
+                                          ScheduleStatus.COMPLETED,
+                                          ScheduleStatus.COMPLETED_RATED
+                                        ].contains(scheduleStatus)
+                                          ? AppColors.green
+                                          : scheduleStatus ==
+                                                  ScheduleStatus.PROGRESS
+                                              ? AppColors.orange
+                                              : AppColors.blue),
+                            ),
+                            // scheduleStatus == ScheduleStatus.COMPLETED
+                            //     ? Text(
+                            //         "10:30PM",
+                            //         style: TextStyles.veryVerySmallText(context,
+                            //             color: AppColors.orange),
+                            //       )
+                            //     : const SizedBox.shrink(),
+                          ],
+                        ),
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  scheduleStatus == ScheduleStatus.COMPLETED
-                      ? "Completed"
-                      : scheduleStatus == ScheduleStatus.PROGRESS
-                          ? "In Progress"
-                          : "Upcoming",
-                  style: TextStyles.smallText(context,
-                      color: todayIsActive
-                          ? AppColors.white
-                          : scheduleStatus == ScheduleStatus.COMPLETED
-                              ? AppColors.green
-                              : scheduleStatus == ScheduleStatus.PROGRESS
-                                  ? AppColors.orange
-                                  : AppColors.blue),
-                ),
-                scheduleStatus == ScheduleStatus.COMPLETED
-                    ? Text(
-                        "10:30PM",
-                        style: TextStyles.veryVerySmallText(context,
-                            color: AppColors.orange),
-                      )
-                    : const SizedBox.shrink(),
-              ],
-            ),
+            [ScheduleStatus.COMPLETED, ScheduleStatus.COMPLETED_RATED]
+                    .contains(scheduleStatus)
+                ? Positioned(
+                    top: 3,
+                    right: 3,
+                    child: GestureDetector(
+                      onTap: () {
+                        bottomSheet(context);
+                      },
+                      child: const SizedBox(
+                        child: Icon(
+                          Icons.more_vert,
+                          size: 22,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
+      );
+
+  ///
+  bottomSheet(BuildContext context) => showModalBottomSheet(
+        context: context,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 10,
+        builder: (BuildContext context) {
+          return Wrap(
+            children: [
+              Column(
+                children: [
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        Get.back();
+                        AppDialogs.show(context,
+                            barrierDismissible: false,
+                            child: reviewWidget(context),
+                            confirm: null);
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 14 + paddingVn),
+                        child: Row(
+                          children: [
+                            Expanded(child: Text("Edit Rate")),
+                            Icon(Icons.edit, size: 18),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // const SizedBox(height: paddingVn),
+                ],
+              ),
+            ],
+          );
+        },
       );
 }

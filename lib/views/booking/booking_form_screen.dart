@@ -96,20 +96,104 @@ class BookingScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: paddingV),
 
                     ///
+                    // const SizedBox(height: paddingV),
+
+                    // Text("Weeler Type",
+                    //     style: TextStyles.inputFieldTitle(context)),
+                    // const SizedBox(height: paddingVn),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       flex: 1,
+                    //       child: CommonWidgets.radioTile(context,
+                    //           value: 0,
+                    //           selected: bookingVm.weelerTypeSelected.value,
+                    //           title: "Two Weeler", onChange: (selected) {
+                    //         bookingVm.weelerTypeSelected.value = selected;
+                    //       }),
+                    //     ),
+                    //     Expanded(
+                    //       flex: 1,
+                    //       child: CommonWidgets.radioTile(context,
+                    //           value: 1,
+                    //           selected: bookingVm.weelerTypeSelected.value,
+                    //           title: "Four Weeler", onChange: (selected) {
+                    //         bookingVm.weelerTypeSelected.value = selected;
+                    //       }),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(height: paddingVn),
+
+                    ///
+                    // bookingVm.weelerTypeSelected.value == 1
+                    //     ? Padding(
+                    //         padding: const EdgeInsets.only(left: 0),
+                    //         child: Container(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               horizontal: 8, vertical: 4),
+                    //           decoration: BoxDecoration(
+                    //               borderRadius: const BorderRadius.all(
+                    //                   Radius.circular(8)),
+                    //               color: Theme.of(context)
+                    //                   .primaryColor
+                    //                   .withOpacity(0.1)),
+                    //           child: ListView.builder(
+                    //               itemCount: [
+                    //                 "A-Segment (MINI I HATCHBACK)",
+                    //                 "B-Segment (COMPACT SUV / SEDANS)",
+                    //                 "C-Segment (SUV I SEDANS)"
+                    //               ].length,
+                    //               physics: const NeverScrollableScrollPhysics(),
+                    //               shrinkWrap: true,
+                    //               itemBuilder: (context, index) {
+                    //                 return Obx(
+                    //                   () => Padding(
+                    //                     padding:
+                    //                         const EdgeInsets.only(bottom: 5),
+                    //                     child: CommonWidgets.radioTile(context,
+                    //                         value: index,
+                    //                         selected: bookingVm
+                    //                             .subWeelerSelected.value,
+                    //                         title: [
+                    //                           "A-Segment (MINI I HATCHBACK)",
+                    //                           "B-Segment (COMPACT SUV / SEDANS)",
+                    //                           "C-Segment (SUV I SEDANS)"
+                    //                         ][index], onChange: (selected) {
+                    //                       bookingVm.subWeelerSelected.value =
+                    //                           index;
+                    //                     },
+                    //                         titleStyle: TextStyles.smallText(
+                    //                           context,
+                    //                           color: Theme.of(context)
+                    //                               .textTheme
+                    //                               .bodyMedium!
+                    //                               .color,
+                    //                         )),
+                    //                   ),
+                    //                 );
+                    //               }),
+                    //         ),
+                    //       )
+                    //     : const SizedBox.shrink(),
+                    // const SizedBox(height: paddingVn),
+
+                    // ///
+                    // const Divider(),
+                    const SizedBox(height: paddingV),
                     Column(
                       children: [
                         Row(
                           children: [
                             Flexible(
                               flex: 1,
-                              child: _radioTile(context,
+                              child: CommonWidgets.radioTile(context,
                                   value: 2,
                                   selected:
                                       bookingVm.selectedProcessTypeIndex.value,
-                                  title: "ScheduleOnce", onChange: (selected) {
+                                  title: "Schedule Once", onChange: (selected) {
                                 bookingVm.selectedProcessTypeIndex.value =
                                     selected;
                               }),
@@ -121,23 +205,23 @@ class BookingScreen extends StatelessWidget {
                           children: [
                             Flexible(
                               flex: 1,
-                              child: _radioTile(context,
+                              child: CommonWidgets.radioTile(context,
                                   value: 0,
                                   selected:
                                       bookingVm.selectedProcessTypeIndex.value,
-                                  title: "OneTime", onChange: (selected) {
+                                  title: "One Time", onChange: (selected) {
                                 bookingVm.selectedProcessTypeIndex.value =
                                     selected;
                               }),
                             ),
                             Flexible(
                               flex: 2,
-                              child: _radioTile(
+                              child: CommonWidgets.radioTile(
                                 context,
                                 value: 1,
                                 selected:
                                     bookingVm.selectedProcessTypeIndex.value,
-                                title: "TimeTap",
+                                title: "Time Tap",
                                 subtitle: "Customize schedule",
                                 onChange: (selected) {
                                   bookingVm.selectedProcessTypeIndex.value =
@@ -209,7 +293,7 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () async {
+                              text: "DD-MM-YYYY", onClick: () async {
                             await datePicker(context);
                           }, isHint: true),
                         ),
@@ -278,7 +362,7 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () async {
+                              text: "DD-MM-YYYY", onClick: () async {
                             await datePicker(context);
                           }, isHint: true),
                         ),
@@ -304,7 +388,7 @@ class BookingScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.symmetric(horizontal: paddingH),
                           child: CommonWidgets.inputCardWidget(context,
-                              text: "DD-MM-YY", onClick: () async {
+                              text: "DD-MM-YYYY", onClick: () async {
                             await datePicker(context);
                           }, isHint: true),
                         ),
@@ -362,53 +446,4 @@ class BookingScreen extends StatelessWidget {
       lastDate: DateTime(2101),
     );
   }
-
-  Widget _radioTile(context,
-          {required String title,
-          String? subtitle,
-          required int selected,
-          required int value,
-          required Function(int) onChange}) =>
-      InkWell(
-        onTap: () {
-          onChange(value);
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Radio(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              visualDensity: const VisualDensity(
-                horizontal: VisualDensity.minimumDensity,
-                vertical: VisualDensity.minimumDensity,
-              ),
-              value: value,
-              groupValue: selected,
-              fillColor:
-                  MaterialStateProperty.all(Theme.of(context).primaryColor),
-              activeColor: Theme.of(context).primaryColor,
-              autofocus: true,
-              onChanged: (value) {
-                onChange(value ?? -1);
-              },
-            ),
-            const SizedBox(width: paddingHn),
-            Expanded(
-              child: RichText(
-                text: TextSpan(
-                  text: '$title ',
-                  style: TextStyles.normalText(context,
-                      color: Theme.of(context).textTheme.bodyMedium!.color),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: subtitle ?? '',
-                        style: TextStyles.verySmallText(context, isGrey: true)),
-                  ],
-                ),
-                maxLines: 2,
-              ),
-            ),
-          ],
-        ),
-      );
 }

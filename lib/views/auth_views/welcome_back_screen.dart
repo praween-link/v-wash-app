@@ -53,7 +53,6 @@ class WelcomeBackScreen extends StatelessWidget {
               },
             ),
             spaceHeight,
-            spaceHeight,
             Row(
               children: [
                 Flexible(
@@ -69,15 +68,19 @@ class WelcomeBackScreen extends StatelessWidget {
                         margin: const EdgeInsets.only(right: paddingH))),
               ],
             ),
-            spaceHeight,
-            spaceHeight,
-            CommonWidgets.button(
-              context,
-              title: "Create Accout",
-              onClick: () {
-                Get.toNamed(Routes.SIGNUP);
-              },
-            ),
+            // spaceHeight,
+            TextButton(
+                onPressed: () {
+                  Get.toNamed(Routes.SIGNUP);
+                },
+                child: const Text("Create New Accout"))
+            // CommonWidgets.button(
+            //   context,
+            //   title: "Create Accout",
+            //   onClick: () {
+            //     Get.toNamed(Routes.SIGNUP);
+            //   },
+            // ),
           ],
         ),
       ),

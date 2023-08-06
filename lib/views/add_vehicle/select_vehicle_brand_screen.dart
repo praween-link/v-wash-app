@@ -3,7 +3,6 @@ import 'package:appwash/utils/constants/app_colors.dart';
 import 'package:appwash/utils/constants/app_font_size.dart';
 import 'package:appwash/utils/images/icons_path.dart';
 import 'package:appwash/utils/styles/text_styles.dart';
-import 'package:appwash/utils/theme/app_theme.dart';
 import 'package:appwash/utils/widgets/common_widgets.dart';
 import 'package:appwash/utils/widgets/scaffo.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +53,7 @@ class SelectVehicleBrandScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           // color: Colors.amber,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: AppColors.grey),
+                          border: Border.all(color: AppColors.grey),
                         ),
                         child: Image.asset(AppIcons.authLogo),
                       ),

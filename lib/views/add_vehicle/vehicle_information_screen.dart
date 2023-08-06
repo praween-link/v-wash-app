@@ -1,3 +1,4 @@
+import 'package:appwash/utils/enums.dart';
 import 'package:appwash/viewmodel/app_home/booking/vehical_information_viewmodel.dart';
 import 'package:appwash/routes/paths.dart';
 import 'package:appwash/utils/constants/app_colors.dart';
@@ -36,6 +37,60 @@ class VehicleInformationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: paddingV),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: paddingH),
+              child: Obx(
+                () => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: AppColors.grey),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: CommonWidgets.button(
+                        context,
+                        title: "Two Wheeler",
+                        titleColor: vehicleInformationVm.wheelerType.value ==
+                                WheelerType.TWO
+                            ? null
+                            : AppColors.grey2,
+                        color: vehicleInformationVm.wheelerType.value ==
+                                WheelerType.TWO
+                            ? null
+                            : Theme.of(context).scaffoldBackgroundColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 8),
+                        onClick: () {
+                          vehicleInformationVm.wheelerType.value =
+                              WheelerType.TWO;
+                        },
+                      )),
+                      Expanded(
+                          child: CommonWidgets.button(
+                        context,
+                        title: "Four Wheeler",
+                        titleColor: vehicleInformationVm.wheelerType.value ==
+                                WheelerType.FOUR
+                            ? null
+                            : AppColors.grey2,
+                        color: vehicleInformationVm.wheelerType.value ==
+                                WheelerType.FOUR
+                            ? null
+                            : Theme.of(context).scaffoldBackgroundColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 8),
+                        onClick: () {
+                          vehicleInformationVm.wheelerType.value =
+                              WheelerType.FOUR;
+                        },
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: paddingV),
             _titleWidget(context, "Select Model"),
             const SizedBox(height: paddingVn),

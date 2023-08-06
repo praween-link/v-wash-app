@@ -230,19 +230,27 @@ mixin _WidgetsDashboard {
                           Icon(
                             Icons.calendar_month,
                             size: FontSizes.normal,
+                            color:
+                                // !singleBooking
+                                //     ? null
+                                //     :
+                                Theme.of(context).primaryColor,
                           ),
                           const SizedBox(width: paddingHn / 2),
                           Expanded(
                             child: InkWell(
                               onTap: () {},
                               child: Text(
-                                !singleBooking
-                                    ? address
-                                    : "View Scheduled Date’s",
+                                // !singleBooking
+                                //     ? address
+                                //     :
+                                "View Scheduled Date’s",
                                 style: TextStyles.smallText(context,
-                                    color: !singleBooking
-                                        ? null
-                                        : Theme.of(context).primaryColor),
+                                    color: 
+                                    // !singleBooking
+                                    //     ? null
+                                    //     :
+                                         Theme.of(context).primaryColor),
                                 maxLines: 1,
                               ),
                             ),

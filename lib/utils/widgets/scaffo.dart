@@ -4,8 +4,11 @@ import 'package:appwash/utils/images/icons_path.dart';
 import 'package:appwash/utils/widgets/customs/drawer.dart';
 import 'package:flutter/material.dart';
 
-BoxDecoration scaffoBodyDecoration(context) => BoxDecoration(
-      color: Theme.of(context).scaffoldBackgroundColor,
+import 'image_view.dart';
+
+BoxDecoration scaffoBodyDecoration(context, {Color? backgroundColor}) =>
+    BoxDecoration(
+      color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(45), topRight: Radius.circular(45)),
     );
@@ -20,6 +23,7 @@ class Scaffo extends StatelessWidget {
     this.scaffoBtmNavBar,
     this.appDrawerOpen = false,
     this.appDrawer,
+    this.backgroundColor,
   });
   final Widget child;
   Widget? appBarBottomChild;
@@ -28,6 +32,7 @@ class Scaffo extends StatelessWidget {
   ScaffoBtmNavBar? scaffoBtmNavBar;
   bool appDrawerOpen;
   Widget? appDrawer;
+  Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,7 @@ class Scaffo extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: paddingV, top: paddingV * 3),
-                                  child: Image.asset(AppIcons.appLogo,
+                                  child: ImageView.assetView(AppIcons.appLogo,
                                       height: height * 0.15,
                                       width: width * 0.5),
                                 ),
@@ -76,7 +81,8 @@ class Scaffo extends StatelessWidget {
                                 child: Container(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  decoration: scaffoBodyDecoration(context),
+                                  decoration: scaffoBodyDecoration(context,
+                                      backgroundColor: backgroundColor),
                                   padding: bodyPadding ??
                                       const EdgeInsets.symmetric(
                                           horizontal: paddingH),
@@ -109,6 +115,7 @@ class Scaffo extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : btmNavBar(
                     context,
+                    selectedItem: scaffoBtmNavBar!.selectedItem,
                     onChange: scaffoBtmNavBar!.onChange,
                     items: scaffoBtmNavBar!.itemTabs,
                     centerItem: scaffoBtmNavBar!.circularWidgetItem ??
@@ -124,6 +131,7 @@ class Scaffo extends StatelessWidget {
                     btmNavBarColor: scaffoBtmNavBar!.btmNavBarColor,
                     spacesInCenter: scaffoBtmNavBar!.spacesInCenter,
                     btmNavBarDecoration: scaffoBtmNavBar!.btmNavBarDecoration,
+                    selectedColor: scaffoBtmNavBar!.selectedColor,
                   ),
           ],
         ),
@@ -136,6 +144,8 @@ class Scaffo extends StatelessWidget {
   Widget btmNavBar(
     context, {
     required List<BtmNavItem> items,
+    int selectedItem = 0,
+    Color? selectedColor,
     required Widget centerItem,
     required Function centerItemClick,
     double? cirularItemRadius, //
@@ -164,7 +174,6 @@ class Scaffo extends StatelessWidget {
     for (int i = len ~/ 2; i < len; i++) {
       newItemsList.add(items[i]);
     }
-
     return Column(
       children: [
         const Expanded(child: SizedBox.shrink()),
@@ -184,33 +193,65 @@ class Scaffo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: newItemsList.asMap().entries.map((item) {
-                  return item.value.lebel == 'hiden_circule'
-                      ? CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          radius: (cirularItemRadius ?? 25) /
-                              (spacesInCenter ?? 1.5))
-                      : Flexible(
-                          flex: 1,
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () => onChange(
-                                  currentCircularIndex > item.key
-                                      ? item.key
-                                      : item.key - 1),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  item.value.icon,
-                                  item.value.lebel == null
-                                      ? const SizedBox.shrink()
-                                      : Text(item.value.lebel ?? '',
-                                          style: item.value.textStyle),
-                                  const SizedBox(height: 3),
-                                ],
-                              ),
+                  // print(
+                  //     "selectedItem: $selectedItem, currentCircularIndex: $currentCircularIndex, item: ${(selectedItem == currentCircularIndex ? item.key + 1 : item.key)}");
+                  if (item.value.lebel == 'hiden_circule') {
+                    return CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: (cirularItemRadius ?? 25) /
+                            (spacesInCenter ?? 1.5));
+                  } else {
+                    return Flexible(
+                      flex: 1,
+                      child: Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => onChange(
+                                currentCircularIndex > item.key
+                                    ? item.key
+                                    : item.key - 1),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                (selectedItem >= currentCircularIndex
+                                            ? selectedItem + 1
+                                            : selectedItem) ==
+                                        item.key
+                                    ? Container(
+                                        height: btmNavBarHeight ?? 50,
+                                        // width: btmNavBarHeight ?? 50,
+                                        decoration: BoxDecoration(
+                                            color: selectedColor ??
+                                                Colors.white.withOpacity(0.1),
+                                            // shape: BoxShape.circle
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(12))),
+                                      )
+                                    : const SizedBox.shrink(),
+                                Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      item.value.icon,
+                                      item.value.lebel == null
+                                          ? const SizedBox.shrink()
+                                          : Text(item.value.lebel ?? '',
+                                              style: item.value.textStyle),
+                                      const SizedBox(height: 3),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        );
+                        ),
+                      ),
+                    );
+                  }
                 }).toList(),
               ),
             ),
@@ -260,6 +301,8 @@ class ScaffoBtmNavBar {
   Color? btmNavBarColor;
   Decoration? btmNavBarDecoration;
   double? spacesInCenter;
+  int selectedItem;
+  Color? selectedColor;
 
   ScaffoBtmNavBar({
     required this.itemTabs,
@@ -276,5 +319,7 @@ class ScaffoBtmNavBar {
     this.cirularItemColor,
     required this.onChange,
     this.spacesInCenter,
+    this.selectedItem = 0,
+    this.selectedColor,
   });
 }

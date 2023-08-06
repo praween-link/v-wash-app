@@ -57,7 +57,7 @@ class RewardsScreen extends StatelessWidget {
                             "https://i.pngimg.me/thumb/f/720/comdlpng6970124.jpg",
                             width: Get.width * 0.3,
                             fit: BoxFit.cover,
-                            height: 75,
+                            height: 65,
                           ),
                         ),
                         const SizedBox(width: paddingHn),
@@ -72,12 +72,12 @@ class RewardsScreen extends StatelessWidget {
                               style: TextStyles.smallText(context,
                                   fontWeight: FontWeight.w600),
                             ),
-                            const SizedBox(height: paddingVn),
+                            const SizedBox(height: paddingVn-5),
                             Text(
                               "Up to 300 Cashback*",
                               style: TextStyles.smallText(context),
                             ),
-                            const SizedBox(height: paddingVn),
+                            const SizedBox(height: paddingVn-5),
                             Text(
                               "Lorem Ipsum is simply dummy text of ",
                               style:
@@ -88,9 +88,12 @@ class RewardsScreen extends StatelessWidget {
                       ],
                     );
                   },
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(height: paddingVn),
-                  itemCount: 5,
+                  separatorBuilder: (_, __) => Divider(
+                    height: paddingV,
+                    color: AppColors.grey.withOpacity(0.2),
+                  ),
+                  //const SizedBox(height: paddingVn),
+                  itemCount: 15,
                 ),
               ),
             ],

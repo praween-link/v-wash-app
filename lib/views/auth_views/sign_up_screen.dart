@@ -5,6 +5,7 @@ import 'package:appwash/utils/styles/text_styles.dart';
 import 'package:appwash/utils/widgets/common_widgets.dart';
 import 'package:appwash/utils/widgets/scaffo.dart';
 import 'package:appwash/viewmodel/auth/signup_auth_viewmodel.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -102,7 +103,6 @@ class SignUpScreen extends StatelessWidget {
                     },
                   ),
                   spaceHeight,
-                  spaceHeight,
                   Row(
                     children: [
                       Flexible(
@@ -110,8 +110,7 @@ class SignUpScreen extends StatelessWidget {
                           child: _divider(context,
                               margin: const EdgeInsets.only(left: paddingH))),
                       spaceWidth,
-                      Text("sign up with",
-                          style: TextStyles.smallText(context)),
+                      Text("OR", style: TextStyles.smallText(context)),
                       spaceWidth,
                       Flexible(
                         flex: 1,
@@ -120,7 +119,6 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  spaceHeight,
                   spaceHeight,
                   CommonWidgets.button(
                     context,
@@ -133,7 +131,27 @@ class SignUpScreen extends StatelessWidget {
                         Text("Sign up with Google",
                             style: TextStyles.normalText(context)),
                         const SizedBox(width: paddingH),
-                        Image.asset(AppIcons.googleIcon, height: 25, width: 25),
+                        Image.asset(AppIcons.googleIcon, height: 19, width: 19),
+                      ],
+                    ),
+                  ),
+                  spaceHeight,
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyles.mediumText(
+                        context,
+                        isGrey: true,
+                      ),
+                      children: [
+                        const TextSpan(text: "Have an account? "),
+                        TextSpan(
+                          text: "Sign In",
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w700),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Get.back(),
+                        ),
                       ],
                     ),
                   ),
@@ -142,13 +160,13 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 0,
-          left: 0,
-          child: SafeArea(
-            child: CommonWidgets.circularBack(),
-          ),
-        ),
+        // Positioned(
+        //   top: 0,
+        //   left: 0,
+        //   child: SafeArea(
+        //     child: CommonWidgets.circularBack(),
+        //   ),
+        // ),
       ],
     );
   }

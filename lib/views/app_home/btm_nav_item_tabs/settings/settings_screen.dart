@@ -72,7 +72,10 @@ class WidgetSettings {
   static Widget settingTile(context,
           {required String title,
           required Function onClick,
-          Color? titleColor}) =>
+          Color? titleColor,
+          Widget? leading,
+          Color? color,
+          bool selected = false}) =>
       GestureDetector(
         onTap: () => onClick(),
         child: Container(
@@ -82,6 +85,12 @@ class WidgetSettings {
               horizontal: paddingH, vertical: paddingV),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
+            color: selected
+                ? (color ?? Theme.of(context).primaryColor).withOpacity(0.1)
+                : null,
+            border: selected
+                ? Border.all(color: (color ?? Theme.of(context).primaryColor))
+                : null,
             boxShadow: [
               BoxShadow(
                 blurRadius: 5,
@@ -101,7 +110,7 @@ class WidgetSettings {
                       fontWeight: FontWeight.w600, color: titleColor),
                 ),
               ),
-              const Icon(Icons.keyboard_arrow_right, size: 22),
+              leading ?? const Icon(Icons.keyboard_arrow_right, size: 22),
             ],
           ),
         ),

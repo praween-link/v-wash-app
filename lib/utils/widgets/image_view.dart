@@ -1,3 +1,4 @@
+import 'package:appwash/utils/images/icons_path.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -15,4 +16,12 @@ class ImageView {
             width: width,
             fit: fit),
       );
+
+  static Widget assetView(String path,
+      {double? height, double? width, BoxFit? fit}) {
+    return Container(
+        color: Colors.transparent,
+        child: Image.asset(AppIcons.appLogo,
+            height: height, width: width, fit: fit));
+  }
 }

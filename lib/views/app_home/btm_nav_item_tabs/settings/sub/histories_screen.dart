@@ -89,10 +89,6 @@ class _WidgetSettings {
                       "Booking Date & Time: 22 Sep 2022 , 9:00 AM",
                       style: TextStyles.smallText(context),
                     ),
-                    Text(
-                      "Assigned to: Ashwani Thakur",
-                      style: TextStyles.smallText(context),
-                    ),
                   ],
                 ),
               ),

@@ -115,7 +115,11 @@ class CommonWidgets {
                       : RichText(
                           text: TextSpan(
                             text: '   🇮🇳',
-                            style: TextStyles.normalText(context),
+                            style: TextStyles.normalText(context,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color),
                             children: <TextSpan>[
                               const TextSpan(text: ' +91 '),
                               TextSpan(

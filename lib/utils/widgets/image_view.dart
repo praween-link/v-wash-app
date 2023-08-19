@@ -21,7 +21,7 @@ class ImageView {
       {double? height, double? width, BoxFit? fit}) {
     return Container(
         color: Colors.transparent,
-        child: Image.asset(AppIcons.appLogo,
+        child: Image.asset(path,
             height: height, width: width, fit: fit));
   }
 }

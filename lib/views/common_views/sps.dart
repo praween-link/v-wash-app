@@ -18,7 +18,7 @@ class _SpScrState extends State<SpScr> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       Get.offAllNamed(Routes.WELCOMEBACK);
     });
   }
@@ -36,9 +36,9 @@ class _SpScrState extends State<SpScr> {
       ),
       child: Column(
         children: [
-          SizedBox(height: Get.height * 0.15),
-          ImageView.assetView(AppIcons.appLogo,
-              height: Get.width * 0.3, width: Get.width * 0.3),
+          SizedBox(height: Get.height * 0.1),
+          ImageView.assetView(AppIcons.splashLogo,
+              height: Get.width * 0.4, width: Get.width * 0.4),
         ],
       ),
     ));
